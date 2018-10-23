@@ -1,12 +1,8 @@
 import React from "react";
-import "../styles/App.scss";
-
 import Start from "./Start";
 import HostQuiz from "./HostQuiz";
 import ClientQuiz from "./ClientQuiz";
-
-
-
+import "../styles/App.scss";
 
 class App extends React.Component {
   constructor() {
@@ -30,7 +26,6 @@ class App extends React.Component {
 
   render() {
     return (
-
       <main>
         {this.state.quizStart && (
           <Start handleClientHostDecision={this.handleClientHostDecision} />
@@ -39,7 +34,6 @@ class App extends React.Component {
         {this.state.clientQuiz && <ClientQuiz />}
       </main>
     );
-
   }
 }
 
