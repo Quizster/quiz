@@ -1,26 +1,27 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
+const http = require('http').Server(app);
 
 app.use(bodyParser.json());
-app.use('/static', express.static('static'));
-app.set('view engine', 'hbs');
+app.use("/static", express.static("static"));
+app.set("view engine", "hbs");
 
-const pgp = require('pg-promise')();
+const pgp = require("pg-promise")();
 const db = pgp({
-    host: 'localhost',
-    port: 5432,
-    database: process.env.DB_NAME,
-    user: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD
+  host: "localhost",
+  port: 5432,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD
 });
 
-app.get('/', function(req, res){
-  res.render('index');
+app.get("/", function(req, res) {
+  res.render("index");
 });
 
-app.listen(8080, function(){
-  console.log('Listening on port 8080');
+app.listen(8080, function() {
+  console.log("Listening on port 8080");
 });
