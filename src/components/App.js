@@ -2,6 +2,7 @@ import React from "react";
 import Start from "./Start";
 import HostQuiz from "./HostQuiz";
 import ClientQuiz from "./ClientQuiz";
+import Form from "./Form.js";
 import "../styles/App.scss";
 
 class App extends React.Component {
@@ -26,12 +27,17 @@ class App extends React.Component {
 
   render() {
     return (
+      <div>
+        Hello World
+
+      </div>
       <main>
         {this.state.quizStart && (
           <Start handleClientHostDecision={this.handleClientHostDecision} />
         )}
         {this.state.hostQuiz && <HostQuiz />}
         {this.state.clientQuiz && <ClientQuiz />}
+          <Form />
       </main>
     );
   }
