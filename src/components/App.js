@@ -1,7 +1,6 @@
 import React from "react";
 import "../styles/App.scss";
-import Mariusz from "/.Mariusz";
-import Form from "/.Form";
+import Form from "./Form.js";
 
 class App extends React.Component {
   constructor() {

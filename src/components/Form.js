@@ -1,4 +1,4 @@
-import Form from "react";
+import React from "react";
 
 class Form extends React.Component {
   constructor() {
@@ -7,17 +7,17 @@ class Form extends React.Component {
       playerName: ""
     };
 
-    thishandleChange = this.handleChange.bind(this);
-    thishandleSubmit = thishandleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ playerName: event.target.value.toTitleCase() });
+    this.setState({ playerName: event.target.value });
   }
 
   handleSubmit(event) {
     const player = this.state.playerName;
-    alert("Get ready to play:" + player);
+    alert("Get ready to play: " + player.toUpperCase());
     event.preventDefault();
   }
   render() {
@@ -31,7 +31,7 @@ class Form extends React.Component {
             onChange={this.handleChange}
           />
         </label>
-        <inout type="submit" value="Submit" />
+        <input type="submit" value="Submit" />
       </form>
     );
   }
