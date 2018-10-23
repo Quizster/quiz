@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const http = require('http').Server(app);
 
 app.use(bodyParser.json());
 app.use('/static', express.static('static'));
@@ -19,6 +20,7 @@ const db = pgp({
 
 app.get('/', function(req, res){
   res.render('index');
+  res.send("<h1>Hello</h1>");
 });
 
 app.listen(8080, function(){
