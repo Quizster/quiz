@@ -73,6 +73,10 @@ app.post("/api/player/user", function(req, res) {
     });
 });
 
+app.post("/api/player/user", (req, res) => {
+  //db check
+});
+
 app.listen(8080, function() {
   console.log("Listening on port 8080");
 });

@@ -1,8 +1,10 @@
 CREATE DATABASE quiz;
+
 CREATE TABLE question (
 id SERIAL PRIMARY KEY,
 question TEXT NOT NULL
-)
+);
+
 INSERT INTO question(question) VALUES ('In the Bible who interpreted the dreams of Pharaoh?');
 INSERT INTO question(question) VALUES ('The flag of which country has the Star of David?');
 INSERT INTO question(question) VALUES ('In which year was Magna Carta signed?');
@@ -23,13 +25,15 @@ INSERT INTO question(question) VALUES ('Which TV news channel began telecast in 
 INSERT INTO question(question) VALUES ('Which of the following is not a gas?');
 INSERT INTO question(question) VALUES ('Which state was known as Mysore?');
 INSERT INTO question(question) VALUES ('Who was the Czar of Russia in 1917?');
+
 CREATE TABLE answer(
 id SERIAL PRIMARY KEY,
 question_id INT,
 is_correct BOOLEAN NOT NULL DEFAULT FALSE,
 answer VARCHAR(100) NOT NULL,
 FOREIGN KEY (question_id) REFERENCES question (id)
-)
+);
+
 INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Joseph', TRUE);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Daniel', DEFAULT);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'David', DEFAULT);
@@ -62,12 +66,51 @@ INSERT INTO answer (question_id, answer, is_correct) VALUES (8, 'Daffodil', DEFA
 INSERT INTO answer (question_id, answer, is_correct) VALUES (8, 'Shamrock', TRUE);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (8, 'Marigold', DEFAULT);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (8, 'Jasmine', DEFAULT);
-
-CREATE TABLE player (
-    id SERIAL PRIMARY KEY,
-    player INT,
-    name TEXT,
-    question_id INT,
-    is_correct BOOLEAN,
-    FOREIGN KEY (question_id) REFERENCES question (id)
-);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (9, 'Teheran', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (9, 'Baghdad', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (9, 'Kabul', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (9, 'Tashkent', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (10, 'Albino Luciani', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (10, 'Angelo Roncalli', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (10, 'Aldo Moro', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (10, 'Sandro Pertini', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (11, 'Delhi', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (11, 'Amarkot', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (11, 'Agra', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (11, 'Sikandra', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (12, 'Napoleon Bonaparte', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (12, 'Horatio Nelson', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (12, 'Francis Drake', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (12, 'Charles Martel', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (13, 'Augustinian', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (13, 'Dominican', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (13, 'Capuchin', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (13, 'Franciscan', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (14, 'Monarchy', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (14, 'Aristocracy', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (14, 'Theocracy', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (14, 'Anarchy', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (15, 'Lee Harvey Oswald', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (15, 'John Hinckley', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (15, 'John Wilkes Booth', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (15, 'Michael Schiavo', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (16, 'India', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (16, 'Pakistan', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (16, 'Germany', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (16, 'Australia', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (17, 'Star News', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (17, 'CNN', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (17, 'BBC', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (17, 'Fox News', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (18, 'Nitrogen', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (18, 'Oxygen', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (18, 'Helium', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (18, 'Mercury', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (19, 'Kerala', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (19, 'Andhra Pradesh', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (19, 'Karnataka', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (19, 'Tamil Nadu', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (20, 'Nicholas II', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (20, 'Alexander II', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (20, 'Ivan IV', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (20, 'Peter II', DEFAULT);
