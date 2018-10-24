@@ -5,15 +5,11 @@ class ClientQuiz extends React.Component {
   constructor() {
     super();
     this.state = {
-      correct: [],
-      incorrect: [],
       player: {},
       playerName: ""
     };
     this.handleAnswer = this.handleAnswer.bind(this);
     this.currentQuiz = this.currentQuiz.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.submitAnswer = this.submitAnswer.bind(this);
   }
 
@@ -59,16 +55,19 @@ class ClientQuiz extends React.Component {
   }
 
   render() {
-    console.log(this.state.correct);
-    console.log(this.state.incorrect);
-
     return (
       <section className="clientQuiz">
         <h1 className="clientQuiz__question">{this.currentQuiz().question}</h1>
         <ul className="clientQuiz__answers">
           {Object.keys(this.currentQuiz().answers).map(key => (
-            <li className="clientQuiz__answer" onClick={() => this.handleAnswer(key)} key={key}>
-              <p className="clientQuiz__answerText">{this.currentQuiz().answers[key]}</p> 
+            <li
+              className="clientQuiz__answer"
+              onClick={() => this.handleAnswer(key)}
+              key={key}
+            >
+              <p className="clientQuiz__answerText">
+                {this.currentQuiz().answers[key]}
+              </p>
             </li>
           ))}
         </ul>
