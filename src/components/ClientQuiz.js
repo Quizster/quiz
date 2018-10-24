@@ -56,13 +56,19 @@ class ClientQuiz extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className="clientQuiz">
         <CountDownTimer roundNum={this.props.counter} />
-        <h1>{this.currentQuiz().question}</h1>
-        <ul>
+        <h1 className="clientQuiz__question">{this.currentQuiz().question}</h1>
+        <ul className="clientQuiz__answers">
           {Object.keys(this.currentQuiz().answers).map(key => (
-            <li onClick={() => this.handleAnswer(key)} key={key}>
-              {this.currentQuiz().answers[key]}
+            <li
+              className="clientQuiz__answer"
+              onClick={() => this.handleAnswer(key)}
+              key={key}
+            >
+              <p className="clientQuiz__answerText">
+                {this.currentQuiz().answers[key]}
+              </p>
             </li>
           ))}
         </ul>
