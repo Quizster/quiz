@@ -1,11 +1,13 @@
 import React from "react";
 
+let clicks = 0;
 class ClientQuiz extends React.Component {
   constructor() {
     super();
     this.state = {
       correct: [],
       incorrect: [],
+      player: {},
       playerName: ""
     };
     this.handleAnswer = this.handleAnswer.bind(this);
@@ -15,60 +17,45 @@ class ClientQuiz extends React.Component {
     this.submitAnswer = this.submitAnswer.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({ playerName: event.target.value });
-  }
-
-  handleSubmit(event) {
-    const player = this.state.playerName;
-    alert("Get ready to play: " + player.toUpperCase());
-    event.preventDefault();
-  }
-
-  // submitAnswer() {
-  //   const id = 12345;
-  //   const name = "Tony";
-  //   const answer = 1;
-
-  //   const playerAnswer = { [id]: { id: [id], name: [name], answer: [answer] } };
-
-  //   return playerAnswer;
-
-  //   // TODO: submit player answer to player answer endpoint
-  //   fetch("api/player/answer", {
-  //     method: "post",
-  //     body: JSON.stringify(answer),
-  //     headers: {
-  //       "content-Type": "application/json"
-  //     }
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       console.log("order post success: ", JSON.stringify(data));
-  //       this.setState({
-  //         response: data
-  //       });
-  //     })
-  //     .catch(error => console.error("Error: ", error));
-  // }
-
   currentQuiz() {
     let quiz = this.props.quizzes[this.props.counter];
     return quiz;
   }
   //Takes the answer object's key. Checks it against the quiz's correct answer
   handleAnswer(key) {
+    //this is just a temporary implementation
+    this.clicks += 1;
+    //player id will be decided upon username verification
     if (key === this.currentQuiz().correctAnswer) {
-      let correct = this.state.correct;
-      correct.push({ key: key, name: "bob" });
-      this.setState({ correct: correct });
+      let editedPlayer = Object.assign(
+        {},
+        {
+          id: this.props.playerId,
+          name: this.props.playerName,
+          quizId: this.props.quizCollectionId,
+          questions: {}
+        }
+      );
+      //increment with one question result per quiz
+      editedPlayer.questions[this.props.counter + 1] = "correct";
+      this.setState({ player: editedPlayer });
     } else {
-      let incorrect = this.state.incorrect;
-      incorrect.push({ key: key, name: "andy" });
-      this.setState({ incorrect: incorrect });
+      let editedPlayer = Object.assign(
+        {},
+        {
+          id: this.props.playerId,
+          name: this.props.playerName,
+          quizId: this.props.quizCollectionId,
+          questions: {}
+        }
+      );
+      editedPlayer.questions[this.props.counter + 1] = "incorrect";
+      this.setState({ player: editedPlayer });
     }
-    let games = this.state.correct.length + this.state.incorrect.length;
-    games >= 4 ? this.props.receiveRoundEnd(this.state.correct) : null;
+    if (this.clicks >= 4) {
+      this.clicks = 0;
+      this.props.receiveRoundEnd(this.state.player);
+    }
   }
 
   render() {
@@ -86,17 +73,6 @@ class ClientQuiz extends React.Component {
             </li>
           ))}
         </ul>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Username:
-            <input
-              type="text"
-              value={this.state.playerName}
-              onChange={this.handleChange}
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
       </section>
     );
   }
