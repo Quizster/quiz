@@ -1,8 +1,10 @@
 CREATE DATABASE quiz;
+
 CREATE TABLE question (
 id SERIAL PRIMARY KEY,
 question TEXT NOT NULL
-)
+);
+
 INSERT INTO question(question) VALUES ('In the Bible who interpreted the dreams of Pharaoh?');
 INSERT INTO question(question) VALUES ('The flag of which country has the Star of David?');
 INSERT INTO question(question) VALUES ('In which year was Magna Carta signed?');
@@ -23,13 +25,15 @@ INSERT INTO question(question) VALUES ('Which TV news channel began telecast in 
 INSERT INTO question(question) VALUES ('Which of the following is not a gas?');
 INSERT INTO question(question) VALUES ('Which state was known as Mysore?');
 INSERT INTO question(question) VALUES ('Who was the Czar of Russia in 1917?');
+
 CREATE TABLE answer(
 id SERIAL PRIMARY KEY,
 question_id INT,
 is_correct BOOLEAN NOT NULL DEFAULT FALSE,
 answer VARCHAR(100) NOT NULL,
 FOREIGN KEY (question_id) REFERENCES question (id)
-)
+);
+
 INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Joseph', TRUE);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Daniel', DEFAULT);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'David', DEFAULT);
