@@ -30,7 +30,11 @@ class App extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
-        this.setState({ playerId: data.id });
+        this.setState({
+          playerId: data.id,
+          clientQuiz: true,
+          quizStart: false
+        });
       });
   }
 
@@ -67,9 +71,7 @@ class App extends React.Component {
   render() {
     return (
       <main className="mainApp">
-        {this.state.quizStart && (
-          <Start handleClientHostDecision={this.handleClientHostDecision} />
-        )}
+        {this.state.quizStart && <Start verifyUsername={this.verifyUsername} />}
         {this.state.hostQuiz && (
           <HostQuiz quizzes={this.state.quizzes} counter={this.state.counter} />
         )}
