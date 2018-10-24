@@ -58,7 +58,7 @@ class App extends React.Component {
       quizzes: [
         {
           id: 1,
-          question: "kjsfld;klfksk",
+          question: "kjsfld klfksk fdsakjh dfskjahf sdfasfrfgewrgwrg",
           answers: {
             1: "fsdkl",
             2: "dfadslkdskmskh",
@@ -69,7 +69,7 @@ class App extends React.Component {
         },
         {
           id: 2,
-          question: "kjfdsgk",
+          question: "kjfdsgk fdksjah dskljh ds hjdskf kjsgdfkjahgfkdfs",
           answers: {
             1: "fsdkl",
             2: "dfskh",
@@ -95,7 +95,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <main>
+      <main className="mainApp">
         {this.state.quizStart && (
           <Start handleClientHostDecision={this.handleClientHostDecision} />
         )}
