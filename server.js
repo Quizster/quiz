@@ -3,7 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const http = require('http').Server(app);
 
 app.use(bodyParser.json());
 app.use("/static", express.static("static"));
@@ -22,6 +21,7 @@ app.get("/", function(req, res) {
   res.render("index");
 });
 
+// get quiz questions
 app.get('/api/questions', function (req, res) {
   db.any('SELECT question.id AS questionId, answer.id AS answerId, question.question, answer.answer,answer.is_correct FROM answer, question WHERE question.id = answer.question_id')
     .then(output => {
@@ -43,13 +43,22 @@ app.get('/api/questions', function (req, res) {
       });
       output.forEach(item => {
         if (item.is_correct === true) {
-          objectWitQuestionToBeReturned[item.questionid] = Object.assign({}, objectWitQuestionToBeReturned[item.questionid], {correctAnswer: item.answerid} )
+          objectWitQuestionToBeReturned[item.questionid] = Object.assign({}, objectWitQuestionToBeReturned[item.questionid], { correctAnswer: item.answerid })
         }
       })
-            
+
       res.json(objectWitQuestionToBeReturned);
     })
-  })
+})
+
+// TODO: create endpoint for submiting player answer
+app.post("/api/player/answer", (req, res) => {
+  db.one(`INSERT INTO player (id, name, answer) VALUES ('placed') RETURNING id`)
+    .then(result => {})
+    .then(data => {})
+    .catch(error => res.json({ error: error.message }));
+});
+
 app.listen(8080, function() {
   console.log("Listening on port 8080");
 })
