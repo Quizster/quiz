@@ -24,7 +24,7 @@ class ClientQuiz extends React.Component {
   //Takes the answer object's key. Checks it against the quiz's correct answer
   handleAnswer(key) {
     //this is just a temporary implementation
-    this.clicks += 1;
+    clicks += 1;
     //player id will be decided upon username verification
     if (key === this.currentQuiz().correctAnswer) {
       let editedPlayer = Object.assign(
