@@ -66,8 +66,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <main>
-        {this.state.quizStart && <Start verifyUsername={this.verifyUsername} />}
+      <main className="mainApp">
+        {this.state.quizStart && (
+          <Start handleClientHostDecision={this.handleClientHostDecision} />
+        )}
+        {this.state.hostQuiz && (
+          <HostQuiz quizzes={this.state.quizzes} counter={this.state.counter} />
+        )}
         {this.state.clientQuiz && (
           <ClientQuiz
             quizCollectionId={this.state.quizCollectionId}

@@ -63,13 +63,12 @@ class ClientQuiz extends React.Component {
     console.log(this.state.incorrect);
 
     return (
-      <section>
-        <p>Working Client!</p>
-        <h1>{this.currentQuiz().question}</h1>
-        <ul>
+      <section className="clientQuiz">
+        <h1 className="clientQuiz__question">{this.currentQuiz().question}</h1>
+        <ul className="clientQuiz__answers">
           {Object.keys(this.currentQuiz().answers).map(key => (
-            <li onClick={() => this.handleAnswer(key)} key={key}>
-              {this.currentQuiz().answers[key]}
+            <li className="clientQuiz__answer" onClick={() => this.handleAnswer(key)} key={key}>
+              <p className="clientQuiz__answerText">{this.currentQuiz().answers[key]}</p> 
             </li>
           ))}
         </ul>
