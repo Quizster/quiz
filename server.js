@@ -34,10 +34,10 @@ app.get('/api/questions', function (req, res) {
           id: item.questionid,
           question: item.question,
           answers: {
-            [index - 2]: fullObjectOfanswers[index - 2],
-            [index - 1]: fullObjectOfanswers[index - 1],
+            [index-2]: fullObjectOfanswers[index-2],
+            [index-1]: fullObjectOfanswers[index-1],
             [index]: fullObjectOfanswers[index],
-            [index + 1]: fullObjectOfanswers[index + 1]
+            [index+1]: fullObjectOfanswers[index+1]
           }
         }
       });
@@ -61,4 +61,4 @@ app.post("/api/player/answer", (req, res) => {
 
 app.listen(8080, function() {
   console.log("Listening on port 8080");
-});
+})
