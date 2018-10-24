@@ -25,12 +25,12 @@ app.get("/", function(req, res) {
 app.get('/api/questions', function (req, res) {
   db.any('SELECT question.id AS questionId, answer.id AS answerId, question.question, answer.answer,answer.is_correct FROM answer, question WHERE question.id = answer.question_id')
     .then(output => {
-      let objectWitQuestionToBeReturned = {};
+      let objectWitQuestionsToBeReturned = {};
       let fullObjectOfanswers = {};
 
       output.forEach((item, index) => {
         fullObjectOfanswers[item.answerid] = item.answer;
-        objectWitQuestionToBeReturned[item.questionid] = {
+        objectWitQuestionsToBeReturned[item.questionid] = {
           id: item.questionid,
           question: item.question,
           answers: {
@@ -43,11 +43,11 @@ app.get('/api/questions', function (req, res) {
       });
       output.forEach(item => {
         if (item.is_correct === true) {
-          objectWitQuestionToBeReturned[item.questionid] = Object.assign({}, objectWitQuestionToBeReturned[item.questionid], { correctAnswer: item.answerid })
+          objectWitQuestionsToBeReturned[item.questionid] = Object.assign({}, objectWitQuestionToBeReturned[item.questionid], { correctAnswer: item.answerid })
         }
       })
 
-      res.json(objectWitQuestionToBeReturned);
+      res.json(objectWitQuestionsToBeReturned);
     })
 })
 
