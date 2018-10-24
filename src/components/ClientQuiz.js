@@ -6,7 +6,19 @@ class ClientQuiz extends React.Component {
     this.state = {
       correct: [],
       incorrect: [],
-      playerName: ""
+      playerName: "",
+      playerScore: {
+        1234: {
+          playerid: 1234,
+          name: "Tony",
+          quizId: 5678,
+          questions: {
+            1: true,
+            2: false,
+            3: true
+          }
+        }
+      }
     };
     this.handleAnswer = this.handleAnswer.bind(this);
     this.currentQuiz = this.currentQuiz.bind(this);

@@ -22,43 +22,60 @@ app.get("/", function(req, res) {
 });
 
 // get quiz questions
-app.get('/api/questions', function (req, res) {
-  db.any('SELECT question.id AS questionId, answer.id AS answerId, question.question, answer.answer,answer.is_correct FROM answer, question WHERE question.id = answer.question_id')
-    .then(output => {
-      let objectWitQuestionsToBeReturned = {};
-      let fullObjectOfanswers = {};
+app.get("/api/questions", function(req, res) {
+  db.any(
+    "SELECT question.id AS questionId, answer.id AS answerId, question.question, answer.answer,answer.is_correct FROM answer, question WHERE question.id = answer.question_id"
+  ).then(output => {
+    let objectWitQuestionsToBeReturned = {};
+    let fullObjectOfanswers = {};
 
-      output.forEach((item, index) => {
-        fullObjectOfanswers[item.answerid] = item.answer;
-        objectWitQuestionsToBeReturned[item.questionid] = {
-          id: item.questionid,
-          question: item.question,
-          answers: {
-            [index-2]: fullObjectOfanswers[index-2],
-            [index-1]: fullObjectOfanswers[index-1],
-            [index]: fullObjectOfanswers[index],
-            [index+1]: fullObjectOfanswers[index+1]
-          }
+    output.forEach((item, index) => {
+      fullObjectOfanswers[item.answerid] = item.answer;
+      objectWitQuestionsToBeReturned[item.questionid] = {
+        id: item.questionid,
+        question: item.question,
+        answers: {
+          [index - 2]: fullObjectOfanswers[index - 2],
+          [index - 1]: fullObjectOfanswers[index - 1],
+          [index]: fullObjectOfanswers[index],
+          [index + 1]: fullObjectOfanswers[index + 1]
         }
-      });
-      output.forEach(item => {
-        if (item.is_correct === true) {
-          objectWitQuestionsToBeReturned[item.questionid] = Object.assign({}, objectWitQuestionToBeReturned[item.questionid], { correctAnswer: item.answerid })
-        }
-      })
+      };
+    });
+    output.forEach(item => {
+      if (item.is_correct === true) {
+        objectWitQuestionsToBeReturned[item.questionid] = Object.assign(
+          {},
+          objectWitQuestionsToBeReturned[item.questionid],
+          { correctAnswer: item.answerid }
+        );
+      }
+    });
 
-      res.json(objectWitQuestionsToBeReturned);
-    })
-})
+    res.json(objectWitQuestionsToBeReturned);
+  });
+});
 
 // TODO: create endpoint for submiting player answer
-app.post("/api/player/answer", (req, res) => {
-  db.one(`INSERT INTO player (id, name, answer) VALUES ('placed') RETURNING id`)
-    .then(result => {})
-    .then(data => {})
-    .catch(error => res.json({ error: error.message }));
+app.post("/api/player/answer", function(req, res) {
+  // console.log(req.body);
+  const playerName= req.body;
+  console.log(playerName.name);
+  db.one(
+    // `INSERT INTO player (player, name, question_id, is_correct) VALUES ($1, $2, $3, $4) RETURNING id`
+    `INSERT INTO player (name) VALUES ($1) RETURNING id`
+    [playerName]
+  )
+    .then(data => {
+      res.json(Object.assign({}, { id: data.id }, req.body));
+    })
+    .catch(error => {
+      res.json({
+        error: error.message
+      });
+    });
 });
 
 app.listen(8080, function() {
   console.log("Listening on port 8080");
-})
+});

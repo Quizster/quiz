@@ -62,3 +62,12 @@ INSERT INTO answer (question_id, answer, is_correct) VALUES (8, 'Daffodil', DEFA
 INSERT INTO answer (question_id, answer, is_correct) VALUES (8, 'Shamrock', TRUE);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (8, 'Marigold', DEFAULT);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (8, 'Jasmine', DEFAULT);
+
+CREATE TABLE player (
+    id SERIAL PRIMARY KEY,
+    player INT,
+    name VARCHAR(50),
+    question_id INT,
+    is_correct BOOLEAN,
+    FOREIGN KEY (question_id) REFERENCES question (id)
+);
