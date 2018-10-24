@@ -56,18 +56,15 @@ app.get("/api/questions", function(req, res) {
   });
 });
 
-// TODO: create endpoint for submiting player answer
-app.post("/api/player/answer", function(req, res) {
-  // console.log(req.body);
-  const playerName= req.body;
-  console.log(playerName.name);
+// Submit player name and get player id
+app.post("/api/player/user", function(req, res) {
+  const playerName  = req.body;
   db.one(
-    // `INSERT INTO player (player, name, question_id, is_correct) VALUES ($1, $2, $3, $4) RETURNING id`
-    `INSERT INTO player (name) VALUES ($1) RETURNING id`
+    `INSERT INTO player (name) VALUES ($1) RETURNING id, name`,
     [playerName]
   )
     .then(data => {
-      res.json(Object.assign({}, { id: data.id }, req.body));
+      res.json(data.id);
     })
     .catch(error => {
       res.json({

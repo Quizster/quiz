@@ -66,7 +66,7 @@ INSERT INTO answer (question_id, answer, is_correct) VALUES (8, 'Jasmine', DEFAU
 CREATE TABLE player (
     id SERIAL PRIMARY KEY,
     player INT,
-    name VARCHAR(50),
+    name TEXT,
     question_id INT,
     is_correct BOOLEAN,
     FOREIGN KEY (question_id) REFERENCES question (id)

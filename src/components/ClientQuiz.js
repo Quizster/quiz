@@ -47,7 +47,7 @@ class ClientQuiz extends React.Component {
     return playerAnswer;
 
     // TODO: submit player answer to player answer endpoint
-    fetch("api/player/answer", {
+    fetch("api/player/user", {
       method: "post",
       body: JSON.stringify(answer),
       headers: {
@@ -60,6 +60,21 @@ class ClientQuiz extends React.Component {
         this.setState({
           response: data
         });
+      })
+      .catch(error => console.error("Error: ", error));
+  }
+
+  componentDidMount() {
+    fetch("api/player/user", {
+      method: "post",
+      body: JSON.stringify({ name: "tony"}),
+      headers: {
+        "content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Player ID: ", JSON.stringify(data));
       })
       .catch(error => console.error("Error: ", error));
   }
