@@ -46,7 +46,7 @@ app.get("/api/questions", function(req, res) {
       if (item.is_correct === true) {
         objectWitQuestionsToBeReturned[item.questionid] = Object.assign(
           {},
-          objectWitQuestionToBeReturned[item.questionid],
+          objectWitQuestionsToBeReturned[item.questionid],
           { correctAnswer: item.answerid }
         );
       }
@@ -56,12 +56,21 @@ app.get("/api/questions", function(req, res) {
   });
 });
 
-// TODO: create endpoint for submiting player answer
-app.post("/api/player/answer", (req, res) => {
-  db.one(`INSERT INTO player (id, name, answer) VALUES ('placed') RETURNING id`)
-    .then(result => {})
-    .then(data => {})
-    .catch(error => res.json({ error: error.message }));
+// Submit player name and get player id
+app.post("/api/player/user", function(req, res) {
+  const playerName  = req.body;
+  db.one(
+    `INSERT INTO player (name) VALUES ($1) RETURNING id, name`,
+    [playerName]
+  )
+    .then(data => {
+      res.json(data.id);
+    })
+    .catch(error => {
+      res.json({
+        error: error.message
+      });
+    });
 });
 
 app.post("/api/player/user", (req, res) => {
