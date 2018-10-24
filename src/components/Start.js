@@ -3,22 +3,35 @@ import React from "react";
 class Start extends React.Component {
   constructor() {
     super();
-    this.state = {};
-    this.passUpDecision = this.passUpDecision.bind(this);
+    this.state = { playerName: "" };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  //Selection is passed up through id.
-  passUpDecision(event) {
-    this.props.handleClientHostDecision(event.target.id);
+
+  handleChange(event) {
+    this.setState({ playerName: event.target.value });
   }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const player = this.state.playerName;
+    this.props.verifyUsername(player);
+  }
+
   render() {
     return (
       <section>
-        <h1 onClick={this.passUpDecision} id="host">
-          Host
-        </h1>
-        <h1 onClick={this.passUpDecision} id="client">
-          Client
-        </h1>
+        <form onSubmit={this.handleSubmit}>
+          <label>
+            Username:
+            <input
+              type="text"
+              value={this.state.playerName}
+              onChange={this.handleChange}
+            />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
       </section>
     );
   }
