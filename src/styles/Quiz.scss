@@ -1,8 +1,7 @@
-.clientQuiz {
+.quiz {
     display: grid;
     grid-template-rows: 4fr 6fr;
     grid-template-columns: 1fr;
-    height: 100vh;
     &__question {
         display: grid;
         align-self: center;
@@ -40,5 +39,6 @@
         display: grid;
         align-self: center;
         text-align: center;
+        cursor: pointer;
     }
 }

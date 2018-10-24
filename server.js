@@ -53,15 +53,17 @@ app.get("/api/questions", function(req, res) {
     });
 
     res.json(objectWitQuestionsToBeReturned);
+
   });
 });
 
-// Submit player name and get player id
+// submit player name and get player id
 app.post("/api/player/user", function(req, res) {
-  const playerName  = req.body;
+  const { user } = req.body;
+  console.log(user);
   db.one(
     `INSERT INTO player (name) VALUES ($1) RETURNING id, name`,
-    [playerName]
+    [user]
   )
     .then(data => {
       res.json(data.id);
@@ -73,9 +75,25 @@ app.post("/api/player/user", function(req, res) {
     });
 });
 
-app.post("/api/player/user", (req, res) => {
-  //db check
-});
+// submit player answer
+app.post("/api/player/answer", function(req, res) {
+  const answer = req.body;
+  console.log(answer);
+  db.one(
+    `INSERT INTO results (player_id, quiz_id)
+    VALUES ($1, $2)
+    RETURNING id`,
+    [answer.id, answer.quizId]
+  )
+  .then(data => {
+    res.json(data.id);
+  })
+  .catch(error => {
+    res.json({
+      error: error.message
+    });
+  });
+})
 
 app.listen(8080, function() {
   console.log("Listening on port 8080");
