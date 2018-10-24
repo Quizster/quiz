@@ -127,7 +127,7 @@ $input-text-active: #BFD2FF;
         flex-direction: row;
         width: 100%;
         margin: 0 auto;
-        border-radius: 4px;
+        border-radius: 6px;
         padding: 1rem 1rem 1.6rem;
         background: $input-background;
         &:after {
@@ -137,7 +137,7 @@ $input-text-active: #BFD2FF;
             right: 0px;
             bottom: 0px;
             z-index: 999;
-            height: 2px;
+            height: 6px;
             border-bottom-left-radius: 2px;
             border-bottom-right-radius: 2px;
             background-position: 0% 0%;
