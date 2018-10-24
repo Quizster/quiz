@@ -25,32 +25,32 @@ class ClientQuiz extends React.Component {
     event.preventDefault();
   }
 
-  submitAnswer() {
-    const id = 12345;
-    const name = "Tony";
-    const answer = 1;
+  // submitAnswer() {
+  //   const id = 12345;
+  //   const name = "Tony";
+  //   const answer = 1;
 
-    const playerAnswer = { [id]: { id: [id], name: [name], answer: [answer] } };
+  //   const playerAnswer = { [id]: { id: [id], name: [name], answer: [answer] } };
 
-    return playerAnswer;
+  //   return playerAnswer;
 
-    // TODO: submit player answer to player answer endpoint
-    fetch("api/player/answer", {
-      method: "post",
-      body: JSON.stringify(answer),
-      headers: {
-        "content-Type": "application/json"
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log("order post success: ", JSON.stringify(data));
-        this.setState({
-          response: data
-        });
-      })
-      .catch(error => console.error("Error: ", error));
-  }
+  //   // TODO: submit player answer to player answer endpoint
+  //   fetch("api/player/answer", {
+  //     method: "post",
+  //     body: JSON.stringify(answer),
+  //     headers: {
+  //       "content-Type": "application/json"
+  //     }
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log("order post success: ", JSON.stringify(data));
+  //       this.setState({
+  //         response: data
+  //       });
+  //     })
+  //     .catch(error => console.error("Error: ", error));
+  // }
 
   currentQuiz() {
     let quiz = this.props.quizzes[this.props.counter];
