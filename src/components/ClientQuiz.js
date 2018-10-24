@@ -1,20 +1,16 @@
 import React from "react";
+import CountDownTimer from "./CountDownTimer";
 
 let clicks = 0;
 class ClientQuiz extends React.Component {
   constructor() {
     super();
     this.state = {
-      correct: [],
-      incorrect: [],
-      player: {},
-      playerName: ""
+      player: {}
     };
+
     this.handleAnswer = this.handleAnswer.bind(this);
     this.currentQuiz = this.currentQuiz.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.submitAnswer = this.submitAnswer.bind(this);
   }
 
   currentQuiz() {
@@ -31,8 +27,8 @@ class ClientQuiz extends React.Component {
         {},
         {
           id: this.props.playerId,
-          name: this.props.playerName,
-          quizId: this.props.quizCollectionId,
+          name: "placeholder name",
+          quizId: 1234,
           questions: {}
         }
       );
@@ -44,8 +40,8 @@ class ClientQuiz extends React.Component {
         {},
         {
           id: this.props.playerId,
-          name: this.props.playerName,
-          quizId: this.props.quizCollectionId,
+          name: "placeholder name",
+          quizId: 1234,
           questions: {}
         }
       );
@@ -59,16 +55,20 @@ class ClientQuiz extends React.Component {
   }
 
   render() {
-    console.log(this.state.correct);
-    console.log(this.state.incorrect);
-
     return (
       <section className="clientQuiz">
+        <CountDownTimer roundNum={this.props.counter} />
         <h1 className="clientQuiz__question">{this.currentQuiz().question}</h1>
         <ul className="clientQuiz__answers">
           {Object.keys(this.currentQuiz().answers).map(key => (
-            <li className="clientQuiz__answer" onClick={() => this.handleAnswer(key)} key={key}>
-              <p className="clientQuiz__answerText">{this.currentQuiz().answers[key]}</p> 
+            <li
+              className="clientQuiz__answer"
+              onClick={() => this.handleAnswer(key)}
+              key={key}
+            >
+              <p className="clientQuiz__answerText">
+                {this.currentQuiz().answers[key]}
+              </p>
             </li>
           ))}
         </ul>

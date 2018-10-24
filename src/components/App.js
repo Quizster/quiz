@@ -1,6 +1,5 @@
 import React from "react";
 import Start from "./Start";
-import HostQuiz from "./HostQuiz";
 import ClientQuiz from "./ClientQuiz";
 import "../styles/App.scss";
 
@@ -11,7 +10,9 @@ class App extends React.Component {
       quizStart: true,
       clientQuiz: false,
       quizzes: [],
-      counter: 0
+      counter: 0,
+      playerId: 0,
+      playerName: ""
     };
     this.receiveRoundEnd = this.receiveRoundEnd.bind(this);
     this.verifyUsername = this.verifyUsername.bind(this);
@@ -19,18 +20,17 @@ class App extends React.Component {
   //Which h1 did the click on? Conditionally render the components through state.
 
   verifyUsername(user) {
+    let userObj = { name: user };
     fetch("api/player/user", {
       method: "POST",
-      body: JSON.stringify(user),
+      body: JSON.stringify(userObj),
       headers: {
         "content-Type": "application/json"
       }
     })
       .then(response => response.json())
       .then(data => {
-        data === user
-          ? this.setState({ user: data, clientQuiz: true })
-          : alert(data);
+        this.setState({ playerId: data.id });
       });
   }
 
