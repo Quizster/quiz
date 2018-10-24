@@ -40,7 +40,7 @@ app.get("/api/questions", function(req, res) {
           [index]: fullObjectOfanswers[index],
           [index + 1]: fullObjectOfanswers[index + 1]
         }
-      };
+      }
     });
     output.forEach(item => {
       if (item.is_correct === true) {
