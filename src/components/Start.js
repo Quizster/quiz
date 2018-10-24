@@ -20,17 +20,19 @@ class Start extends React.Component {
 
   render() {
     return (
-      <section>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Username:
-            <input
+      <section className="start">
+        <form className="start__form" onSubmit={this.handleSubmit}>
+          <label className="start__label">
+            <input className="start__label--inputText"
+              placeholder="Enter Player Name"
               type="text"
               value={this.state.playerName}
               onChange={this.handleChange}
             />
           </label>
-          <input type="submit" value="Submit" />
+          <button className="start__buttonSubmit button--secondary">
+            <span className="button__inner">Submit</span>
+          </button>
         </form>
       </section>
     );
