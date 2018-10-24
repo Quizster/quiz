@@ -3,7 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const http = require('http').Server(app);
 
 app.use(bodyParser.json());
 app.use("/static", express.static("static"));
@@ -20,6 +19,14 @@ const db = pgp({
 
 app.get("/", function(req, res) {
   res.render("index");
+});
+
+// TODO: create endpoint for submiting player answer
+app.post("/api/player/answer", (req, res) => {
+  db.one(`INSERT INTO player (id, name, answer) VALUES ('placed') RETURNING id`)
+    .then(result => {})
+    .then(data => {})
+    .catch(error => res.json({ error: error.message }));
 });
 
 app.listen(8080, function() {

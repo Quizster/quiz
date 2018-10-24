@@ -3,7 +3,7 @@ CREATE DATABASE quiz;
 CREATE TABLE question (
 id SERIAL PRIMARY KEY,
 question TEXT NOT NULL
-)
+);
 
 INSERT INTO question(question) VALUES ('In the Bible who interpreted the dreams of Pharaoh?');
 INSERT INTO question(question) VALUES ('The flag of which country has the Star of David?');
@@ -32,7 +32,7 @@ question_id INT,
 is_correct BOOLEAN NOT NULL DEFAULT FALSE,
 answer VARCHAR(100) NOT NULL,
 FOREIGN KEY (question_id) REFERENCES question (id)
-)
+);
 
 INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Joseph', TRUE);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Daniel', DEFAULT);
@@ -42,3 +42,8 @@ INSERT INTO answer (question_id, answer, is_correct) VALUES (2, 'USA', DEFAULT);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (2, 'Iraq', DEFAULT);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (2, 'Israel', TRUE);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (2, 'Nepal', DEFAULT);
+
+CREATE TABLE player(
+id SERIAL PRIMARY KEY,
+name VARCHAR(100)
+);
