@@ -1,8 +1,8 @@
 import React from "react";
-import "../styles/App.scss";
 import Start from "./Start";
 import HostQuiz from "./HostQuiz";
 import ClientQuiz from "./ClientQuiz";
+import "../styles/App.scss";
 
 /*quizzQuestions = [
     
@@ -35,6 +35,7 @@ class App extends React.Component {
   }
   //Which h1 did the click on? Conditionally render the components through state.
   handleClientHostDecision(decision) {
+    console.log("host");
     //The 'Start' component will always need to be removed.
     this.setState({ quizStart: false });
     //Must be either host or client for this function to be called.
