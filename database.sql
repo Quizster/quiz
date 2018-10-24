@@ -110,3 +110,27 @@ INSERT INTO answer (question_id, answer, is_correct) VALUES (20, 'Nicholas II', 
 INSERT INTO answer (question_id, answer, is_correct) VALUES (20, 'Alexander II', DEFAULT);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (20, 'Ivan IV', DEFAULT);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (20, 'Peter II', DEFAULT);
+
+CREATE TABLE quiz(
+id SERIAL PRIMARY KEY,
+question_id INT,
+FOREIGN KEY (question_id) REFERENCES question (id)
+);
+
+CREATE TABLE player (
+  id SERIAL PRIMARY KEY,
+  player INT,
+  name TEXT,
+  question_id INT,
+  is_correct BOOLEAN,
+  FOREIGN KEY (question_id) REFERENCES question (id)
+);
+
+CREATE TABLE results(
+id SERIAL,
+quiz_id INT,
+player_id INT,
+PRIMARY KEY (id),
+FOREIGN KEY (quiz_id) REFERENCES quiz (id),
+FOREIGN KEY (player_id) REFERENCES player (id)
+);
