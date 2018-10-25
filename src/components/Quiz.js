@@ -45,9 +45,10 @@ class Quiz extends React.Component {
     return quiz;
   }
   //Takes the answer object's key. Checks it against the quiz's correct answer
-  handleAnswer(key) {
+  handleAnswer(key, event) {
     //this is just a temporary implementation
     clicks += 1;
+
     let player = this.state.player;
     //player id will be decided upon username verification
     if (key === this.currentQuiz().correctAnswer) {
@@ -60,9 +61,7 @@ class Quiz extends React.Component {
       console.log(this.state.player);
     } else {
       let editedPlayer = Object.assign(player, {
-        id: this.props.playerId,
-        name: "placeholder name",
-        result: false
+        id: this.props.playerId,p
       });
       this.setState({ player: editedPlayer});
       console.log(this.state.player);
@@ -96,7 +95,7 @@ class Quiz extends React.Component {
           {Object.keys(this.currentQuiz().answers).map(key => (
             <li
               className="quiz__answer"
-              onClick={() => this.handleAnswer(key)}
+              onClick={(event) => this.handleAnswer(key, event)}
               key={key}
             >
               <p className="quiz__answerText">
