@@ -16,6 +16,9 @@ class CountDownTimer extends React.Component {
 
   componentDidMount() {
     this.startTimer();
+    setInterval(() => {
+      this.setState({ isVisible: !this.state.isVisible });
+    }, 500);
   }
   //Is the round counter about to increment?
   componentWillReceiveProps(nextProps) {
@@ -35,9 +38,11 @@ class CountDownTimer extends React.Component {
     // Remove one second, set state so a re-render happens.
     let seconds = this.state.seconds - 1;
     this.setState({
-      seconds: seconds,
-      isVisible: !this.state.isVisible
+      seconds: seconds
     });
+
+    //this.setState({ isVisible: !this.state.isVisible });
+
     if (seconds < 5) {
       //animate
     }
