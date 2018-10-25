@@ -8,15 +8,10 @@ const CountAnimate = posed.div({
 class CountDownTimer extends React.Component {
   constructor() {
     super();
-    this.state = { seconds: 15, isVisible: true, urgent: false };
+    this.state = { seconds: 15, isVisible: true };
     this.timer = 0;
     this.startTimer = this.startTimer.bind(this);
     this.countDown = this.countDown.bind(this);
-    this.toggle = this.toggle.bind(this);
-  }
-
-  toggle() {
-    this.setState({ urgent: !this.state.urgent });
   }
   componentDidMount() {
     this.startTimer();
