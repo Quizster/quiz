@@ -56,6 +56,7 @@ class Quiz extends React.Component {
         name: "placeholder name",
         result: true
       });
+      this.props.addTenToScore();
       this.setState({ player: editedPlayer });
       console.log(this.state.player);
     } else {
@@ -77,7 +78,7 @@ class Quiz extends React.Component {
     return (
       <section className="quiz">
         {players.map(name => (
-          <Player name={name} />
+          <Player score={this.props.score} name={name} />
         ))}
         <CountDownTimer
           roundNum={this.props.counter}
