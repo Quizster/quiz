@@ -40,7 +40,7 @@ app.get("/api/questions", function(req, res) {
           [index]: fullObjectOfanswers[index],
           [index + 1]: fullObjectOfanswers[index + 1]
         }
-      }
+      };
     });
     output.forEach(item => {
       if (item.is_correct === true) {
@@ -53,7 +53,6 @@ app.get("/api/questions", function(req, res) {
     });
 
     res.json(objectWitQuestionsToBeReturned);
-
   });
 });
 
@@ -61,10 +60,7 @@ app.get("/api/questions", function(req, res) {
 app.post("/api/player/user", function(req, res) {
   const { user } = req.body;
   console.log(user);
-  db.one(
-    `INSERT INTO player (name) VALUES ($1) RETURNING id, name`,
-    [user]
-  )
+  db.one(`INSERT INTO player (name) VALUES ($1) RETURNING id, name`, [user])
     .then(data => {
       res.json(data.id);
     })
@@ -85,15 +81,15 @@ app.post("/api/player/answer", function(req, res) {
     RETURNING id`,
     [answer.id, answer.quizId]
   )
-  .then(data => {
-    res.json(data.id);
-  })
-  .catch(error => {
-    res.json({
-      error: error.message
+    .then(data => {
+      res.json(data.id);
+    })
+    .catch(error => {
+      res.json({
+        error: error.message
+      });
     });
-  });
-})
+});
 
 app.listen(8080, function() {
   console.log("Listening on port 8080");

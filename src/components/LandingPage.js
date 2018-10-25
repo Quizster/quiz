@@ -23,7 +23,8 @@ class LandingPage extends React.Component {
       <section className="start">
         <form className="start__form" onSubmit={this.handleSubmit}>
           <label className="start__label">
-            <input className="start__label--inputText"
+            <input
+              className="start__label--inputText"
               placeholder="Enter Player Name"
               type="text"
               value={this.state.playerName}
