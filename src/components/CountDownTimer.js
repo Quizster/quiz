@@ -18,7 +18,7 @@ class CountDownTimer extends React.Component {
     this.startTimer();
     setInterval(() => {
       this.setState({ isVisible: !this.state.isVisible });
-    }, 500);
+    }, 600);
   }
   //Is the round counter about to increment?
   componentWillReceiveProps(nextProps) {
