@@ -39,7 +39,6 @@ class App extends React.Component {
           quiz: true,
           landingPage: false
         });
-        console.log("Player ID" + data);
       })
       .catch(error => console.error("Error: ", error));
   }
@@ -58,7 +57,7 @@ class App extends React.Component {
       })
         .then(response => response.json())
         .then(data => {
-          console.log("order post success: ", JSON.stringify(data));
+          // console.log("order post success: ", JSON.stringify(data));
           this.setState({
             response: data
           });
@@ -84,7 +83,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.quizzes);
+    // console.log(this.state.quizzes);
     return (
       <main className="mainApp">
         {this.state.landingPage && (

@@ -4,9 +4,25 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 
+var server = require("http").Server(app);
+var io = require("socket.io")(server);
+
 app.use(bodyParser.json());
 app.use("/static", express.static("static"));
 app.set("view engine", "hbs");
+
+server.listen(4000, function() {
+  console.log("!Port 4000!");
+});
+
+io.on("connection", socket => {
+  console.log(socket.id);
+  socket.emit("player connected", socket.id);
+
+  socket.on("SEND_MESSAGE", function(data) {
+    io.emit("RECEIVE_MESSAGE", data);
+  });
+});
 
 const pgp = require("pg-promise")();
 const db = pgp({

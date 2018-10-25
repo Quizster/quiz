@@ -1,6 +1,6 @@
 import React from "react";
 import CountDownTimer from "./CountDownTimer";
-import Players from "./Players";
+// import Players from "./Players";
 import io from "socket.io-client";
 
 let clicks = 0;
@@ -20,6 +20,7 @@ class Quiz extends React.Component {
     this.socket.on("RECEIVE_MESSAGE", function(data) {
       addMessage(data);
     });
+
     this.handleAnswer = this.handleAnswer.bind(this);
     this.currentQuiz = this.currentQuiz.bind(this);
 
@@ -38,6 +39,18 @@ class Quiz extends React.Component {
       });
       this.setState({ message: "" });
     };
+  }
+
+  sendMessage(key, correct) {
+    this.socket.emit("SEND_MESSAGE", {
+      player: this.props.playerName,
+      message: correct
+    });
+    this.setState({ message: "" });
+  }
+
+  componentDidMount() {
+    this.sendMessage();
   }
 
   currentQuiz() {
@@ -62,7 +75,7 @@ class Quiz extends React.Component {
       questions[this.props.counter + 1] = "correct";
       editedPlayer.questions = questions;
       this.setState({ player: editedPlayer, questions: questions });
-      console.log(this.state.player);
+      // console.log(this.state.player);
     } else {
       let editedPlayer = Object.assign(player, {
         id: this.props.playerId,
@@ -74,7 +87,7 @@ class Quiz extends React.Component {
       questions[this.props.counter + 1] = "incorrect";
       editedPlayer.questions = questions;
       this.setState({ player: editedPlayer, questions: questions });
-      console.log(this.state.player);
+      // console.log(this.state.player);
     }
     if (this.clicks >= 4) {
       this.clicks = 0;
@@ -91,9 +104,6 @@ class Quiz extends React.Component {
 
   render() {
     let players = Object.getOwnPropertyNames(this.state.players);
-    console.log("players " + players);
-    console.log("render");
-    console.log("123" + Object.getOwnPropertyNames(this.state.players));
     return (
       <section className="quiz">
         {players.map(name => (
