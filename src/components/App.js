@@ -33,22 +33,22 @@ class App extends React.Component {
       .then(response => response.json())
       .then(data => {
         this.setState({
-          playerId: data.id,
+          playerId: data,
           quizStart: false,
           playerName: user,
-          quiz: true,
           landingPage: false
-        });
-        console.log("Player ID" + data);
-      })
-      .catch(error => console.error("Error: ", error));
+        })})
+        .then(this.setState({quiz: true}))
+        .catch(error => console.error("Error: ", error));
   }
 
   receiveRoundEnd(player) {
     //Has the timer reached 0?
+    console.log(player);
     if (player === "next") {
       this.setState({ counter: this.state.counter + 1 });
     } else {
+      console.log("clicked", player);
       fetch("api/player/answer", {
         method: "post",
         body: JSON.stringify(player),
@@ -84,7 +84,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.quizzes);
+    console.log(this.state.playerId);
     return (
       <main className="mainApp">
         {this.state.landingPage && (
