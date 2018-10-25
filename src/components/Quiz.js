@@ -1,6 +1,7 @@
 import React from "react";
 import CountDownTimer from "./CountDownTimer";
 import Players from "./Players";
+import Player from "./Player"
 import io from "socket.io-client";
 
 let clicks = 0;
@@ -97,7 +98,7 @@ class Quiz extends React.Component {
     return (
       <section className="quiz">
         {players.map(name => (
-          <li>{name}</li>
+          <li><Player name ={name}/></li>
         ))}
         <CountDownTimer
           roundNum={this.props.counter}
