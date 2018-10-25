@@ -15,7 +15,7 @@ $input-text-active: #BFD2FF;
     }
 }
 
-.start {
+.landingPage {
     display: grid;
     justify-content: center;
     align-items: center;
@@ -164,18 +164,3 @@ $input-text-active: #BFD2FF;
         text-align: left;
     }
 }
-
-// .webflow-style-input {}
-
-// .webflow-style-input input {}
-
-// .webflow-style-input button {
-//     color: $input-text-inactive;
-//     font-size: 2.4rem;
-//     line-height: 2.4rem;
-//     vertical-align: middle;
-//     transition: color .25s;
-//     &:hover {
-//         color: $input-text-active;
-//     }
-// }
