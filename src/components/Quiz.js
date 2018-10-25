@@ -98,7 +98,7 @@ class Quiz extends React.Component {
     return (
       <section className="quiz">
         {players.map(name => (
-          <li><Player name ={name}/></li>
+          <Player name ={name}/>
         ))}
         <CountDownTimer
           roundNum={this.props.counter}
