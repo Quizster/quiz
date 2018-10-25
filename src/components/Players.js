@@ -9,7 +9,6 @@ class Players extends React.Component {
     console.log("1111111" + this.props.playerName);
     return <div>{this.props.playerName}</div>;
   }
-  w;
 }
 
 export default Players;
