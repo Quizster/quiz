@@ -14,6 +14,7 @@ class App extends React.Component {
       playerId: 0,
       playerName: ""
     };
+    this.parseObject = this.parseObject.bind(this);
     this.receiveRoundEnd = this.receiveRoundEnd.bind(this);
     this.verifyUsername = this.verifyUsername.bind(this);
   }
@@ -30,34 +31,41 @@ class App extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
-        this.setState({ playerId: data.id });
+        this.setState({
+          playerId: data.id,
+          quizStart: false,
+          clientQuiz: true
+        });
       });
   }
 
   receiveRoundEnd(player) {
-    //Push the player object to the server
-    fetch("api/player/answer", {
-      method: "post",
-      body: JSON.stringify(player),
-      headers: {
-        "content-Type": "application/json"
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log("order post success: ", JSON.stringify(data));
-        this.setState({
-          response: data,
-          counter: this.state.counter + 1
-        });
+    //Has the timer reached 0?
+    if (player === "next") {
+      this.setState({ counter: this.state.counter + 1 });
+    } else {
+      fetch("api/player/answer", {
+        method: "post",
+        body: JSON.stringify(player),
+        headers: {
+          "content-Type": "application/json"
+        }
       })
-      .catch(error => console.error("Error: ", error));
+        .then(response => response.json())
+        .then(data => {
+          console.log("order post success: ", JSON.stringify(data));
+          this.setState({
+            response: data
+          });
+        })
+        .catch(error => console.error("Error: ", error));
+    }
   }
 
   componentDidMount() {
     fetch("/api/questions")
       .then(res => res.json())
-      .then(body => parseObject(body));
+      .then(body => this.parseObject(body));
   }
 
   parseObject(obj) {
@@ -65,14 +73,11 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.quizzes);
     return (
       <main className="mainApp">
-        {this.state.quizStart && (
-          <Start handleClientHostDecision={this.handleClientHostDecision} />
-        )}
-        {this.state.hostQuiz && (
-          <HostQuiz quizzes={this.state.quizzes} counter={this.state.counter} />
-        )}
+        {this.state.quizStart && <Start verifyUsername={this.verifyUsername} />}
+
         {this.state.clientQuiz && (
           <ClientQuiz
             quizCollectionId={this.state.quizCollectionId}

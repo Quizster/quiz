@@ -6,7 +6,8 @@ class ClientQuiz extends React.Component {
   constructor() {
     super();
     this.state = {
-      player: {}
+      player: {},
+      questions: {}
     };
 
     this.handleAnswer = this.handleAnswer.bind(this);
@@ -21,32 +22,33 @@ class ClientQuiz extends React.Component {
   handleAnswer(key) {
     //this is just a temporary implementation
     clicks += 1;
+    let player = this.state.player;
+    let questions = this.state.questions;
     //player id will be decided upon username verification
     if (key === this.currentQuiz().correctAnswer) {
-      let editedPlayer = Object.assign(
-        {},
-        {
-          id: this.props.playerId,
-          name: "placeholder name",
-          quizId: 1234,
-          questions: {}
-        }
-      );
+      let editedPlayer = Object.assign(player, {
+        id: this.props.playerId,
+        name: "placeholder name",
+        quizId: 1234,
+        questions: {}
+      });
       //increment with one question result per quiz
-      editedPlayer.questions[this.props.counter + 1] = "correct";
-      this.setState({ player: editedPlayer });
+      questions[this.props.counter + 1] = "correct";
+      editedPlayer.questions = questions;
+      this.setState({ player: editedPlayer, questions: questions });
+      console.log(this.state.player);
     } else {
-      let editedPlayer = Object.assign(
-        {},
-        {
-          id: this.props.playerId,
-          name: "placeholder name",
-          quizId: 1234,
-          questions: {}
-        }
-      );
-      editedPlayer.questions[this.props.counter + 1] = "incorrect";
-      this.setState({ player: editedPlayer });
+      let editedPlayer = Object.assign(player, {
+        id: this.props.playerId,
+        name: "placeholder name",
+        quizId: 1234,
+        questions: {}
+      });
+      //increment with one question result per quiz
+      questions[this.props.counter + 1] = "incorrect";
+      editedPlayer.questions = questions;
+      this.setState({ player: editedPlayer, questions: questions });
+      console.log(this.state.player);
     }
     if (this.clicks >= 4) {
       this.clicks = 0;
@@ -55,9 +57,13 @@ class ClientQuiz extends React.Component {
   }
 
   render() {
+    console.log(this.currentQuiz());
     return (
       <section className="clientQuiz">
-        <CountDownTimer roundNum={this.props.counter} />
+        <CountDownTimer
+          receiveRoundEnd={this.props.receiveRoundEnd}
+          roundNum={this.props.counter}
+        />
         <h1 className="clientQuiz__question">{this.currentQuiz().question}</h1>
         <ul className="clientQuiz__answers">
           {Object.keys(this.currentQuiz().answers).map(key => (
