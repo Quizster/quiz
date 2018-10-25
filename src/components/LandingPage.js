@@ -1,6 +1,6 @@
 import React from "react";
 
-class Start extends React.Component {
+class LandingPage extends React.Component {
   constructor() {
     super();
     this.state = { playerName: "" };
@@ -38,4 +38,4 @@ class Start extends React.Component {
     );
   }
 }
-export default Start;
+export default LandingPage;

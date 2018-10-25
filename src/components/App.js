@@ -1,18 +1,19 @@
 import React from "react";
-import Start from "./Start";
-import ClientQuiz from "./ClientQuiz";
+import LandingPage from "./LandingPage";
+import Quiz from "./Quiz";
 import "../styles/App.scss";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      quizStart: true,
-      clientQuiz: false,
+      landingPage: true,
+      quiz: false,
       quizzes: [],
       counter: 0,
       playerId: 0,
-      playerName: ""
+      playerName: "",
+      quizLength: 0
     };
     this.receiveRoundEnd = this.receiveRoundEnd.bind(this);
     this.verifyUsername = this.verifyUsername.bind(this);
@@ -20,7 +21,7 @@ class App extends React.Component {
   //Which h1 did the click on? Conditionally render the components through state.
 
   verifyUsername(user) {
-    let userObj = { name: user };
+    let userObj = { user };
     fetch("api/player/user", {
       method: "POST",
       body: JSON.stringify(userObj),
@@ -30,8 +31,15 @@ class App extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
-        this.setState({ playerId: data.id });
-      });
+        this.setState({
+          playerId: data,
+          playerName: user,
+          quiz: true,
+          landingPage: false
+        });
+        console.log("Player ID" + data);
+      })
+      .catch(error => console.error("Error: ", error));
   }
 
   receiveRoundEnd(player) {
@@ -57,7 +65,13 @@ class App extends React.Component {
   componentDidMount() {
     fetch("/api/questions")
       .then(res => res.json())
-      .then(body => parseObject(body));
+      .then(body => {
+        this.setState({
+          quizzes: Object.values(body),
+          quizLength: Object.values(body).length
+        });
+      })
+      .catch(error => console.error("Error ", error));
   }
 
   parseObject(obj) {
@@ -67,14 +81,17 @@ class App extends React.Component {
   render() {
     return (
       <main className="mainApp">
-        {this.state.quizStart && (
-          <Start handleClientHostDecision={this.handleClientHostDecision} />
+        {this.state.landingPage && (
+          <LandingPage
+            handleClientHostDecision={this.handleClientHostDecision}
+            verifyUsername={this.verifyUsername}
+          />
         )}
         {this.state.hostQuiz && (
           <HostQuiz quizzes={this.state.quizzes} counter={this.state.counter} />
         )}
-        {this.state.clientQuiz && (
-          <ClientQuiz
+        {this.state.quiz && (
+          <Quiz
             quizCollectionId={this.state.quizCollectionId}
             playerName={this.state.playerName}
             playerId={this.state.playerId}
