@@ -13,11 +13,13 @@ class App extends React.Component {
       counter: 0,
       playerId: 0,
       playerName: "",
-      quizLength: 0
+      quizLength: 0,
+      score: 0
     };
     this.parseObject = this.parseObject.bind(this);
     this.receiveRoundEnd = this.receiveRoundEnd.bind(this);
     this.verifyUsername = this.verifyUsername.bind(this);
+    this.addTenToScore = this.addTenToScore.bind(this);
   }
   //Which h1 did the click on? Conditionally render the components through state.
 
@@ -33,21 +35,29 @@ class App extends React.Component {
       .then(response => response.json())
       .then(data => {
         this.setState({
-          playerId: data.id,
+          playerId: data,
           quizStart: false,
           playerName: user,
-          quiz: true,
           landingPage: false
         });
       })
+      .then(this.setState({ quiz: true }))
       .catch(error => console.error("Error: ", error));
+  }
+  //Just a bit of visual help for the player
+  addTenToScore() {
+    let score = this.state.score;
+    score += 10;
+    this.setState({ score: score });
   }
 
   receiveRoundEnd(player) {
     //Has the timer reached 0?
+    console.log(player);
     if (player === "next") {
       this.setState({ counter: this.state.counter + 1 });
     } else {
+      console.log("clicked", player);
       fetch("api/player/answer", {
         method: "post",
         body: JSON.stringify(player),
@@ -83,7 +93,7 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log(this.state.quizzes);
+    console.log(this.state.playerId);
     return (
       <main className="mainApp">
         {this.state.landingPage && (
@@ -91,6 +101,8 @@ class App extends React.Component {
         )}
         {this.state.quiz && (
           <Quiz
+            score={this.state.score}
+            addTenToScore={this.addTenToScore}
             quizCollectionId={this.state.quizCollectionId}
             playerName={this.state.playerName}
             playerId={this.state.playerId}

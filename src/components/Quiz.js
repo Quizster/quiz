@@ -1,6 +1,7 @@
 import React from "react";
 import CountDownTimer from "./CountDownTimer";
-// import Players from "./Players";
+import Players from "./Players";
+import Player from "./Player";
 import io from "socket.io-client";
 
 let clicks = 0;
@@ -9,7 +10,6 @@ class Quiz extends React.Component {
     super(props);
     this.state = {
       player: {},
-      questions: {},
       players: {},
       username: "",
       message: "",
@@ -58,56 +58,40 @@ class Quiz extends React.Component {
     return quiz;
   }
   //Takes the answer object's key. Checks it against the quiz's correct answer
-  handleAnswer(key) {
+  handleAnswer(key, event) {
     //this is just a temporary implementation
     clicks += 1;
     let player = this.state.player;
-    let questions = this.state.questions;
     //player id will be decided upon username verification
-    if (key === this.currentQuiz().correctAnswer) {
+    if (parseInt(key) === this.currentQuiz().correctAnswer) {
       let editedPlayer = Object.assign(player, {
         id: this.props.playerId,
         name: "placeholder name",
-        quizId: 1234,
-        questions: {}
+        result: true
       });
-      //increment with one question result per quiz
-      questions[this.props.counter + 1] = "correct";
-      editedPlayer.questions = questions;
-      this.setState({ player: editedPlayer, questions: questions });
-      // console.log(this.state.player);
+      this.props.addTenToScore();
+      this.setState({ player: editedPlayer });
+      console.log(this.state.player);
     } else {
       let editedPlayer = Object.assign(player, {
         id: this.props.playerId,
-        name: "placeholder name",
-        quizId: 1234,
-        questions: {}
+        result: false
       });
-      //increment with one question result per quiz
-      questions[this.props.counter + 1] = "incorrect";
-      editedPlayer.questions = questions;
-      this.setState({ player: editedPlayer, questions: questions });
-      // console.log(this.state.player);
-    }
-    if (this.clicks >= 4) {
-      this.clicks = 0;
-      this.props.receiveRoundEnd(this.state.player);
+      this.setState({ player: editedPlayer });
+      console.log(this.state.player);
     }
 
+    this.props.receiveRoundEnd(this.state.player);
     this.sendMessage(key, key == this.currentQuiz().correctAnswer);
-    // if (this.clicks >= 4) {
-    //   this.clicks = 0;
-    //   this.props.receiveRoundEnd(this.state.player);
-    // }
-    // this.props.receiveRoundEnd(this.state.player);
   }
 
   render() {
     let players = Object.getOwnPropertyNames(this.state.players);
+    console.log(this.props.playerId);
     return (
       <section className="quiz">
         {players.map(name => (
-          <li>{name}</li>
+          <Player score={this.props.score} name={name} />
         ))}
         <CountDownTimer
           roundNum={this.props.counter}
@@ -118,7 +102,7 @@ class Quiz extends React.Component {
           {Object.keys(this.currentQuiz().answers).map(key => (
             <li
               className="quiz__answer"
-              onClick={() => this.handleAnswer(key)}
+              onClick={event => this.handleAnswer(key, event)}
               key={key}
             >
               <p className="quiz__answerText">

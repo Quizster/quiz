@@ -92,10 +92,10 @@ app.post("/api/player/answer", function(req, res) {
   const answer = req.body;
   console.log(answer);
   db.one(
-    `INSERT INTO results (player_id, quiz_id)
+    `INSERT INTO results (player_id, correct)
     VALUES ($1, $2)
     RETURNING id`,
-    [answer.id, answer.quizId]
+    [answer.id, answer.result]
   )
     .then(data => {
       res.json(data.id);
