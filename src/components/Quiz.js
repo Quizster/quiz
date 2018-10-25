@@ -38,14 +38,16 @@ class Quiz extends React.Component {
       editedPlayer.questions[this.props.counter + 1] = "incorrect";
     }
 
-    this.setState({ player: editedPlayer }, this.props.receiveRoundEnd(this.state.player))
+    this.setState(
+      { player: editedPlayer },
+      this.props.receiveRoundEnd(this.state.player)
+    );
 
     // if (this.clicks >= 4) {
     //   this.clicks = 0;
     //   this.props.receiveRoundEnd(this.state.player);
     // }
     // this.props.receiveRoundEnd(this.state.player);
-
   }
 
   render() {

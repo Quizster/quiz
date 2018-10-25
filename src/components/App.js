@@ -60,14 +60,16 @@ class App extends React.Component {
         });
       })
       .catch(error => console.error("Error: ", error));
-
   }
 
   componentDidMount() {
     fetch("/api/questions")
       .then(res => res.json())
       .then(body => {
-        this.setState({ quizzes: Object.values(body), quizLength: Object.values(body).length });
+        this.setState({
+          quizzes: Object.values(body),
+          quizLength: Object.values(body).length
+        });
       })
       .catch(error => console.error("Error ", error));
   }
