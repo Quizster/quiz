@@ -20,17 +20,17 @@ class LandingPage extends React.Component {
 
   render() {
     return (
-      <section className="start">
-        <form className="start__form" onSubmit={this.handleSubmit}>
-          <label className="start__label">
-            <input className="start__label--inputText"
+      <section className="landingPage">
+        <form className="landingPage__form" onSubmit={this.handleSubmit}>
+          <label className="landingPage__label">
+            <input className="landingPage__label--inputText"
               placeholder="Enter Player Name"
               type="text"
               value={this.state.playerName}
               onChange={this.handleChange}
             />
           </label>
-          <button className="start__buttonSubmit button--secondary">
+          <button className="landingPage__buttonSubmit button--secondary">
             <span className="button__inner">Submit</span>
           </button>
         </form>
