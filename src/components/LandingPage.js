@@ -19,7 +19,6 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    return (
       <section className="landingPage">
         <form className="landingPage__form" onSubmit={this.handleSubmit}>
           <label className="landingPage__label">

@@ -1,43 +1,17 @@
 import React from "react";
 import CountDownTimer from "./CountDownTimer";
-import Players from "./Players";
-import io from "socket.io-client";
 
 let clicks = 0;
-class Quiz extends React.Component {
-  constructor(props) {
-    super(props);
+class ClientQuiz extends React.Component {
+  constructor() {
+    super();
     this.state = {
       player: {},
-      questions: {},
-      players: {},
-      username: "",
-      message: "",
-      messages: []
+      questions: {}
     };
 
-    this.socket = io("localhost:4000");
-    this.socket.on("RECEIVE_MESSAGE", function(data) {
-      addMessage(data);
-    });
     this.handleAnswer = this.handleAnswer.bind(this);
     this.currentQuiz = this.currentQuiz.bind(this);
-
-    const addMessage = data => {
-      console.log(data);
-      let playerScores = Object.assign({}, this.state.players);
-      playerScores[data.player] = data.message;
-      this.setState({ players: playerScores });
-      console.log(this.state.messages);
-    };
-
-    this.sendMessage = (key, correct) => {
-      this.socket.emit("SEND_MESSAGE", {
-        player: this.props.playerName,
-        message: correct
-      });
-      this.setState({ message: "" });
-    };
   }
 
   currentQuiz() {
@@ -80,38 +54,25 @@ class Quiz extends React.Component {
       this.clicks = 0;
       this.props.receiveRoundEnd(this.state.player);
     }
-
-    this.sendMessage(key, key == this.currentQuiz().correctAnswer);
-    // if (this.clicks >= 4) {
-    //   this.clicks = 0;
-    //   this.props.receiveRoundEnd(this.state.player);
-    // }
-    // this.props.receiveRoundEnd(this.state.player);
   }
 
   render() {
-    let players = Object.getOwnPropertyNames(this.state.players);
-    console.log("players " + players);
-    console.log("render");
-    console.log("123" + Object.getOwnPropertyNames(this.state.players));
+    console.log(this.currentQuiz());
     return (
-      <section className="quiz">
-        {players.map(name => (
-          <li>{name}</li>
-        ))}
+      <section className="clientQuiz">
         <CountDownTimer
-          roundNum={this.props.counter}
           receiveRoundEnd={this.props.receiveRoundEnd}
+          roundNum={this.props.counter}
         />
-        <h1 className="quiz__question">{this.currentQuiz().question}</h1>
-        <ul className="quiz__answers">
+        <h1 className="clientQuiz__question">{this.currentQuiz().question}</h1>
+        <ul className="clientQuiz__answers">
           {Object.keys(this.currentQuiz().answers).map(key => (
             <li
-              className="quiz__answer"
+              className="clientQuiz__answer"
               onClick={() => this.handleAnswer(key)}
               key={key}
             >
-              <p className="quiz__answerText">
+              <p className="clientQuiz__answerText">
                 {this.currentQuiz().answers[key]}
               </p>
             </li>
@@ -121,4 +82,4 @@ class Quiz extends React.Component {
     );
   }
 }
-export default Quiz;
+export default ClientQuiz;

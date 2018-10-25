@@ -14,10 +14,12 @@ class CountDownTimer extends React.Component {
   //Is the round counter about to increment?
   componentWillReceiveProps(nextProps) {
     if (nextProps.roundNum === this.props.roundNum + 1) {
+      console.log("next round!");
       this.startTimer();
     }
   }
   startTimer() {
+    console.log(this.state.seconds);
     if (this.state.seconds > 0) {
       this.timer = setInterval(this.countDown, 1000);
     }
@@ -33,6 +35,8 @@ class CountDownTimer extends React.Component {
     // Check if we're at zero.
     if (seconds === 0) {
       clearInterval(this.timer);
+      this.setState({ seconds: 15 });
+      this.props.receiveRoundEnd("next");
     }
   }
   render() {
