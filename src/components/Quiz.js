@@ -1,7 +1,7 @@
 import React from "react";
 import CountDownTimer from "./CountDownTimer";
 import Players from "./Players";
-import Player from "./Player"
+import Player from "./Player";
 import io from "socket.io-client";
 
 let clicks = 0;
@@ -48,34 +48,27 @@ class Quiz extends React.Component {
   handleAnswer(key, event) {
     //this is just a temporary implementation
     clicks += 1;
-
     let player = this.state.player;
     //player id will be decided upon username verification
-    if (key === this.currentQuiz().correctAnswer) {
+    if (parseInt(key) === this.currentQuiz().correctAnswer) {
       let editedPlayer = Object.assign(player, {
         id: this.props.playerId,
         name: "placeholder name",
         result: true
-      });  
-      this.setState({ player: editedPlayer});
+      });
+      this.setState({ player: editedPlayer });
       console.log(this.state.player);
     } else {
       let editedPlayer = Object.assign(player, {
-        id: this.props.playerId,p
+        id: this.props.playerId,
+        result: false
       });
-      this.setState({ player: editedPlayer});
+      this.setState({ player: editedPlayer });
       console.log(this.state.player);
     }
-   
-      this.props.receiveRoundEnd(this.state.player);
-    
 
+    this.props.receiveRoundEnd(this.state.player);
     this.sendMessage(key, key == this.currentQuiz().correctAnswer);
-    // if (this.clicks >= 4) {
-    //   this.clicks = 0;
-    //   this.props.receiveRoundEnd(this.state.player);
-    // }
-    // this.props.receiveRoundEnd(this.state.player);
   }
 
   render() {
@@ -84,7 +77,7 @@ class Quiz extends React.Component {
     return (
       <section className="quiz">
         {players.map(name => (
-          <Player name ={name}/>
+          <Player name={name} />
         ))}
         <CountDownTimer
           roundNum={this.props.counter}
@@ -95,7 +88,7 @@ class Quiz extends React.Component {
           {Object.keys(this.currentQuiz().answers).map(key => (
             <li
               className="quiz__answer"
-              onClick={(event) => this.handleAnswer(key, event)}
+              onClick={event => this.handleAnswer(key, event)}
               key={key}
             >
               <p className="quiz__answerText">
