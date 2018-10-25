@@ -1,6 +1,6 @@
 import React from "react";
 import posed from "react-pose";
-
+import "../styles/Timer.scss";
 const CountAnimate = posed.div({
   hidden: { opacity: 0 },
   visible: { opacity: 1 }
