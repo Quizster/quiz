@@ -1,8 +1,9 @@
-.clientQuiz {
+.quiz {
     display: grid;
     grid-template-rows: 4fr 6fr;
     grid-template-columns: 1fr;
     height: 100vh;
+
     &__question {
         display: grid;
         align-self: center;
@@ -11,6 +12,7 @@
         color: white;
         font-weight: 900;
     }
+    
     &__answers {
         display: grid;
         grid-gap: 0.5rem;
@@ -40,5 +42,6 @@
         display: grid;
         align-self: center;
         text-align: center;
+        cursor: pointer;
     }
 }

@@ -1,18 +1,19 @@
 import React from "react";
-import Start from "./Start";
-import ClientQuiz from "./ClientQuiz";
+import LandingPage from "./LandingPage";
+import Quiz from "./Quiz";
 import "../styles/App.scss";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      quizStart: true,
-      clientQuiz: false,
+      landingPage: true,
+      quiz: false,
       quizzes: [],
       counter: 0,
       playerId: 0,
-      playerName: ""
+      playerName: "",
+      quizLength: 0
     };
     this.parseObject = this.parseObject.bind(this);
     this.receiveRoundEnd = this.receiveRoundEnd.bind(this);
@@ -21,7 +22,7 @@ class App extends React.Component {
   //Which h1 did the click on? Conditionally render the components through state.
 
   verifyUsername(user) {
-    let userObj = { name: user };
+    let userObj = { user };
     fetch("api/player/user", {
       method: "POST",
       body: JSON.stringify(userObj),
@@ -34,9 +35,13 @@ class App extends React.Component {
         this.setState({
           playerId: data.id,
           quizStart: false,
-          clientQuiz: true
+          playerName: user,
+          quiz: true,
+          landingPage: false
         });
-      });
+        console.log("Player ID" + data);
+      })
+      .catch(error => console.error("Error: ", error));
   }
 
   receiveRoundEnd(player) {
@@ -65,7 +70,13 @@ class App extends React.Component {
   componentDidMount() {
     fetch("/api/questions")
       .then(res => res.json())
-      .then(body => this.parseObject(body));
+      .then(body => {
+        this.setState({
+          quizzes: Object.values(body),
+          quizLength: Object.values(body).length
+        });
+      })
+      .catch(error => console.error("Error ", error));
   }
 
   parseObject(obj) {
@@ -76,10 +87,11 @@ class App extends React.Component {
     console.log(this.state.quizzes);
     return (
       <main className="mainApp">
-        {this.state.quizStart && <Start verifyUsername={this.verifyUsername} />}
-
-        {this.state.clientQuiz && (
-          <ClientQuiz
+        {this.state.landingPage && (
+          <LandingPage verifyUsername={this.verifyUsername} />
+        )}
+        {this.state.quiz && (
+          <Quiz
             quizCollectionId={this.state.quizCollectionId}
             playerName={this.state.playerName}
             playerId={this.state.playerId}

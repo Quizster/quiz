@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css?family=Shadows+Into+Light');
+$input-background: rgba(57,
+63,
+84,
+0.8);
+$input-text-inactive: #7881A1;
+$input-text-active: #BFD2FF;
+// gradient animation
+@keyframes gradient {
+    0% {
+        background-position: 0 0
+    }
+    100% {
+        background-position: 100% 0
+    }
+}
+
+.start {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%; // border: 1px solid red;
+    &__form {
+        // border: 1px solid rgb(0, 255, 157);
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: min-content 1fr;
+    } //Button style
+    &__buttonSubmit {
+        margin: calc(18vh) 0;
+        font-size: 5vw;
+        @media (min-width: 40em) {
+            font-size: 2em;
+        }
+        border: none; // background-color: rgb(235,235,240);
+        // -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        user-select: none;
+        position: relative;
+        z-index: 1;
+        padding: 0; //shadow
+        &:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            width: 10px;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-color: rgba(0, 10, 50, 0.2);
+            transition: transform 0.6s cubic-bezier(0, .90, .13, .90);
+            transform: translate3D(0, 0, 0);
+        }
+        &:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(235, 235, 240);
+            z-index: -1;
+        }
+        &:hover,
+        &:focus {
+            &:before {
+                transform: translate3D(10px, 0, 0);
+            }
+        }
+        &:active {
+            &:before {
+                transform: translate3D(0, 0, 0);
+            }
+        } // End Shadow
+        &:focus,
+        &:active {
+            outline: none;
+        } //The button-part with the text
+        .button__inner {
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #333;
+            padding: 1em 1.5em;
+            background-color: #fbfbfb;
+            display: block;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0, .90, .13, .90);
+            position: relative;
+        }
+        &:hover,
+        &:focus {
+            .button__inner {
+                transform: translate3D(0, -10px, 0);
+            }
+        }
+        &:active .button__inner {
+            transform: translate3D(0, 0, 0);
+        }
+        &:hover,
+        &:focus {
+            .button__inner {
+                background-color: #fff;
+            }
+        }
+    } //Secondary style
+    .button--secondary {
+        background-color: #00d18e;
+        z-index: 0;
+        &:after {
+            background-color: #00d18e;
+        }
+        .button__inner {
+            background-color: #00ffb2;
+        }
+        &:hover,
+        &:focus {
+            .button__inner {
+                background-color: #11ffb3;
+            }
+        }
+    }
+    &__label {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin: 0 auto;
+        border-radius: 6px;
+        padding: 1rem 1rem 1.6rem;
+        background: $input-background;
+        &:after {
+            content: "";
+            position: absolute;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            z-index: 999;
+            height: 6px;
+            border-bottom-left-radius: 2px;
+            border-bottom-right-radius: 2px;
+            background-position: 0% 0%;
+            background: linear-gradient(to right, #B294FF, #57E6E6, #FEFFB8, #57E6E6, #B294FF, #57E6E6);
+            background-size: 500% auto;
+            animation: gradient 3s linear infinite;
+        }
+    }
+    &__label--inputText {
+        border-style: none; 
+        background: transparent; 
+        letter-spacing: 3px;
+        outline: none; 
+        flex-grow: 1;
+        color: $input-text-active;
+        font-size: 1.8rem;
+        line-height: 2.4rem;
+        vertical-align: middle;
+        &::-webkit-input-placeholder {
+            color: $input-text-inactive;
+        }
+        font-family: 'Shadows Into Light',
+        cursive;
+        text-align: left;
+    }
+}
+
+// .webflow-style-input {}
+
+// .webflow-style-input input {}
+
+// .webflow-style-input button {
+//     color: $input-text-inactive;
+//     font-size: 2.4rem;
+//     line-height: 2.4rem;
+//     vertical-align: middle;
+//     transition: color .25s;
+//     &:hover {
+//         color: $input-text-active;
+//     }
+// }

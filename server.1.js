@@ -91,6 +91,6 @@ app.post("/api/player/answer", function(req, res) {
     });
 });
 
-app.listen(8080, function() {
+const server = app.listen(8080, function() {
   console.log("Listening on port 8080");
 });
