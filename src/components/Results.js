@@ -33,20 +33,23 @@ class Results extends React.Component {
   render() {
     console.log(this.state.topPlayers);
     return (
-      <main>
+      <main className="results">
         {this.state.topPlayers ? (
-          <section>
-            <h1>TOP 5</h1>
-            <ol>
+          <section className="results__section">
+            <h1 className="results__title">TOP 5</h1>
+            <ol className="results__list">
               {this.state.topPlayers.map(player => (
-                <li key={Object.keys(player)[0]}>
+                <li
+                  className="results__list__item"
+                  key={Object.keys(player)[0]}
+                >
                   {Object.keys(player)[0]} {Object.values(player)[0]}
                 </li>
               ))}
             </ol>
           </section>
         ) : (
-          <h1>Loading...</h1>
+          <h1 className="results__loading">Loading...</h1>
         )}
       </main>
     );

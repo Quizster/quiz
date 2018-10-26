@@ -1,0 +1,22 @@
+.results {
+  font-family: "Varela Round", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &__section {
+    text-align: center;
+    margin-bottom: 30%;
+  }
+  &__title {
+    color: #ffffff;
+    font-weight: 600;
+    padding-bottom: 1em;
+    font-size: 4em;
+  }
+  &__list__item {
+    color: #ffffff;
+    font-size: 2em;
+  }
+}
