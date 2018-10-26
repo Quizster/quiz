@@ -10,34 +10,39 @@ class Quiz extends React.Component {
     super(props);
     this.state = {
       player: {},
-      players: {},
+      players: {}, // name: [true, true, false]
       username: "",
       message: "",
-      messages: []
+      messages: [],
+      answers: [],
+      playerAnswers: {}
     };
 
     this.socket = io("localhost:4000");
-    this.socket.on("RECEIVE_MESSAGE", function(data) {
-      addMessage(data);
+    this.socket.on("connected_players", function(data) {
+      console.log("playerAnswers: " + data);
+      this.setState({ playerAnswers: data });
+      // this.setState({players: data})
     });
+
     this.handleAnswer = this.handleAnswer.bind(this);
     this.currentQuiz = this.currentQuiz.bind(this);
 
     const addMessage = data => {
-      console.log(data);
       let playerScores = Object.assign({}, this.state.players);
       playerScores[data.player] = data.message;
       this.setState({ players: playerScores });
-      console.log(this.state.messages);
     };
 
     this.sendMessage = (key, correct) => {
-      this.socket.emit("SEND_MESSAGE", {
-        player: this.props.playerName,
-        message: correct
-      });
+      this.socket.emit("send_answer", this.state.answers);
+
       this.setState({ message: "" });
     };
+  }
+
+  componentDidMount() {
+    this.sendMessage();
   }
 
   currentQuiz() {
@@ -58,14 +63,25 @@ class Quiz extends React.Component {
       });
       this.props.addTenToScore();
       this.setState({ player: editedPlayer });
-      console.log(this.state.player);
+
+      const playerObj = { [player]: { [this.props.counter]: true } };
+      this.socket.emit("submit_answer", {
+        playerName: this.props.playerName,
+        question: this.props.counter,
+        answer: true
+      });
     } else {
       let editedPlayer = Object.assign(player, {
         id: this.props.playerId,
         result: false
       });
       this.setState({ player: editedPlayer });
-      console.log(this.state.player);
+
+      this.socket.emit("submit_answer", {
+        playerName: player,
+        question: this.props.counter,
+        answer: true
+      });
     }
 
     this.props.receiveRoundEnd(this.state.player);
@@ -73,8 +89,9 @@ class Quiz extends React.Component {
   }
 
   render() {
-    let players = Object.getOwnPropertyNames(this.state.players);
-    console.log(this.props.playerId);
+    // let players = Object.getOwnPropertyNames(this.state.players);
+    let players = Object.keys(this.props.players);
+    // console.log(this.props.playerId);
     return (
       <section className="quiz">
         {players.map(name => (

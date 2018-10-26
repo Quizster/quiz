@@ -1,6 +1,7 @@
 import React from "react";
 import LandingPage from "./LandingPage";
 import Quiz from "./Quiz";
+import io from "socket.io-client";
 import "../styles/App.scss";
 
 class App extends React.Component {
@@ -11,10 +12,21 @@ class App extends React.Component {
       quiz: false,
       quizzes: [],
       counter: 0,
+      quizId: 0,
       playerId: 0,
       playerName: "",
       quizLength: 0,
-      score: 0
+      score: 0,
+      players: {},
+      answers: {
+        1234: {
+          123: {
+            name: "Tony",
+            id: 123,
+            answers: [true, false, true]
+          }
+        }
+      }
     };
     this.parseObject = this.parseObject.bind(this);
     this.receiveRoundEnd = this.receiveRoundEnd.bind(this);
@@ -35,14 +47,27 @@ class App extends React.Component {
       .then(response => response.json())
       .then(data => {
         this.setState({
+          quizId: 1234,
           playerId: data,
           quizStart: false,
           playerName: user,
-          landingPage: false
+          landingPage: false,
+          socketId: ""
         });
       })
       .then(this.setState({ quiz: true }))
       .catch(error => console.error("Error: ", error));
+
+    this.socket = io("localhost:4000");
+    this.socket.emit("player_joined", user);
+
+    this.socket.on("player_socket", data => {
+      this.setState({ socketId: data });
+    });
+
+    this.socket.on("connected_players", data => {
+      this.setState({ players: data });
+    });
   }
   //Just a bit of visual help for the player
   addTenToScore() {
@@ -67,7 +92,7 @@ class App extends React.Component {
       })
         .then(response => response.json())
         .then(data => {
-          console.log("order post success: ", JSON.stringify(data));
+          // console.log("order post success: ", JSON.stringify(data));
           this.setState({
             response: data
           });
@@ -109,6 +134,7 @@ class App extends React.Component {
             quizzes={this.state.quizzes}
             counter={this.state.counter}
             receiveRoundEnd={this.receiveRoundEnd}
+            players={this.state.players}
           />
         )}
       </main>
