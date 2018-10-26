@@ -10,18 +10,18 @@ class Quiz extends React.Component {
     super(props);
     this.state = {
       player: {},
-      players: {},
+      players: {}, // name: [true, true, false]
       username: "",
       message: "",
       messages: [],
-      answers: []
+      answers: [],
+      playerAnswers: {}
     };
-
-    console.log(props.playerName);
 
     this.socket = io("localhost:4000");
     this.socket.on("connected_players", function(data) {
-      console.log(data);
+      console.log("playerAnswers: " + data);
+      this.setState({ playerAnswers: data });
       // this.setState({players: data})
     });
 
@@ -29,15 +29,12 @@ class Quiz extends React.Component {
     this.currentQuiz = this.currentQuiz.bind(this);
 
     const addMessage = data => {
-      console.log(data);
       let playerScores = Object.assign({}, this.state.players);
       playerScores[data.player] = data.message;
       this.setState({ players: playerScores });
-      console.log(this.state.messages);
     };
 
     this.sendMessage = (key, correct) => {
-      console.log(this.props.playerName);
       this.socket.emit("send_answer", this.state.answers);
 
       this.setState({ message: "" });
@@ -66,14 +63,25 @@ class Quiz extends React.Component {
       });
       this.props.addTenToScore();
       this.setState({ player: editedPlayer });
-      // console.log(this.state.player);
+
+      const playerObj = { [player]: { [this.props.counter]: true } };
+      this.socket.emit("submit_answer", {
+        playerName: this.props.playerName,
+        question: this.props.counter,
+        answer: true
+      });
     } else {
       let editedPlayer = Object.assign(player, {
         id: this.props.playerId,
         result: false
       });
       this.setState({ player: editedPlayer });
-      // console.log(this.state.player);
+
+      this.socket.emit("submit_answer", {
+        playerName: player,
+        question: this.props.counter,
+        answer: true
+      });
     }
 
     this.props.receiveRoundEnd(this.state.player);

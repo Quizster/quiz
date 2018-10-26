@@ -29,8 +29,23 @@ io.on("connection", socket => {
   // when player joins add name a key to player answers
   socket.on("player_joined", function(data) {
     if (!playerAnswers.hasOwnProperty(data)) {
-      playerAnswers[data] = "";
+      playerAnswers[data] = [];
     }
+    io.emit("connected_players", playerAnswers);
+  });
+
+  socket.on("submit_answer", function(data) {
+    // if (!playerAnswers.hasOwnProperty(data)) {
+    //   playerAnswers[data] = "";
+    // }
+    console.log(data.playerName, data.answer, data.question);
+    // const answer = data[]
+    // io.emit("connected_players", playerAnswers);
+
+    if (!playerAnswers.hasOwnProperty(data.playerName)) {
+      playerAnswers[data.playerName][data.question] = data.answer;
+    }
+
     io.emit("connected_players", playerAnswers);
   });
 });
