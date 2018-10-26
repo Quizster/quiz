@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/Timer.scss";
-
 class CountDownTimer extends React.Component {
   constructor() {
     super();
