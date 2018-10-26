@@ -32,8 +32,6 @@ class Quiz extends React.Component {
     this.socket = io("localhost:4000");
     this.socket.on("connected_players", data => {
       this.setState({ playerAnswers: data });
-      // this.setState({players: data})
-      this.props.receiveAnswersEachRound(data);
     });
 
     this.handleAnswer = this.handleAnswer.bind(this);

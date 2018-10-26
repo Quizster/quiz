@@ -93,13 +93,11 @@ class App extends React.Component {
         })
         .catch(error => console.error("Error: ", error));
     }
-  }
-  //Have we reached ten rounds? If so show the results!
-  receiveAnswersEachRound(answers) {
-    this.state.counter > 10
-      ? this.setState({ quiz: false, resultShow: true, playerAnswers: answers })
+    this.state.counter >= 3
+      ? this.setState({ quiz: false, resultShow: true })
       : null;
   }
+  //Have we reached ten rounds? If so show the results!
 
   componentDidMount() {
     fetch("/api/questions")
@@ -138,7 +136,7 @@ class App extends React.Component {
           />
         )}
         {this.state.resultShow && (
-          <Results playerAnswers={this.state.playerAnswers} />
+          <Results playerAnswers={this.state.players} />
         )}
       </main>
     );
