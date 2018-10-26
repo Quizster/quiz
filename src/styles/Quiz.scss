@@ -6,11 +6,11 @@
     'answers' 
     'players'
     ;
-    grid-template-rows: min-content min-content min-content 20%;
+    grid-template-rows: min-content min-content min-content 1fr;
     height: 100vh;
 
     &__players {
-      margin-top: 1rem;
+      margin-top: 2rem;
       display: flex;
      flex-direction: row;
      flex-wrap: wrap;
