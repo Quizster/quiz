@@ -1,0 +1,139 @@
+.player {
+    list-style: none;
+    margin: 0.2rem 0.5rem;
+    display: grid;
+    justify-content: center;
+    &__name {
+        display: grid;
+        justify-content: center;
+        text-shadow: 0px 0px 20px #000000;
+        font-size: 1.2rem;
+    }
+    &__score {
+        display: grid;
+        justify-content: center;
+        text-shadow: 0px 0px 20px #000000;
+    }
+    &__image {
+        justify-self: center;
+    }
+}
+
+.player:nth-of-type(2) {
+    .player__score,
+    .player__name {
+        color: rgb(174, 21, 21);
+    }
+}
+
+.player:nth-of-type(2) {
+    .player__score,
+    .player__name {
+        color: yellow;
+    }
+}
+
+.player:nth-of-type(3) {
+    .player__score,
+    .player__name {
+        color: red;
+    }
+}
+
+.player:nth-of-type(4) {
+    .player__score,
+    .player__name {
+        color: green;
+    }
+}
+
+.player:nth-of-type(5) {
+    .player__score,
+    .player__name {
+        color: blue;
+    }
+}
+
+.player:nth-of-type(6) {
+    .player__score,
+    .player__name {
+        color: magenta;
+    }
+}
+
+.player:nth-of-type(7) {
+    .player__score,
+    .player__name {
+        color: rgb(0, 255, 187);
+    }
+}
+
+.player:nth-of-type(8) {
+    .player__score,
+    .player__name {
+        color: rgb(221, 255, 0);
+    }
+}
+
+.player:nth-of-type(9) {
+    .player__score,
+    .player__name {
+        color: rgb(21, 0, 255);
+    }
+}
+
+.player:nth-of-type(10) {
+    .player__score,
+    .player__name {
+        color: magenta;
+    }
+}
+
+.player:nth-of-type(11) {
+    .player__score,
+    .player__name {
+        color: rgb(160, 53, 53);
+    }
+}
+
+.player:nth-of-type(12) {
+    .player__score,
+    .player__name {
+        color: rgb(34, 0, 255);
+    }
+}
+
+.player:nth-of-type(13) {
+    .player__score,
+    .player__name {
+        color: rgb(255, 234, 0);
+    }
+}
+
+.player:nth-of-type(14) {
+    .player__score,
+    .player__name {
+        color: rgb(0, 255, 115);
+    }
+}
+
+.player:nth-of-type(15) {
+    .player__score,
+    .player__name {
+        color: rgb(255, 0, 60);
+    }
+}
+
+.player:nth-of-type(16) {
+    .player__score,
+    .player__name {
+        color: rgb(106, 0, 255);
+    }
+}
+
+.player:nth-of-type(17) {
+    .player__score,
+    .player__name {
+        color: rgb(0, 255, 123);
+    }
+}

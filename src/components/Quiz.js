@@ -17,18 +17,6 @@ class Quiz extends React.Component {
       answers: [],
       playerAnswers: {}
     };
-    //   playerAnswers: {
-    //   tony: {
-    //     0: true,
-    //     1: false,
-    //     3: false
-    //   },
-    //   luke: {
-    //     0: true,
-    //     1: false
-    //   }
-    // }
-
     this.socket = io("localhost:4000");
     this.socket.on("connected_players", data => {
       this.setState({ playerAnswers: data });
@@ -100,27 +88,35 @@ class Quiz extends React.Component {
   render() {
     // let players = Object.getOwnPropertyNames(this.state.players);
     let players = Object.keys(this.props.players);
+    let playerObj = this.props.players;
     return (
       <section className="quiz">
-        {players.map(name => (
-          <Player score={this.props.score} name={name} />
+        <div className="quiz__players">
+        {Object.keys(playerObj).map(player => (
+          <Player
+            player={player}
+            scores={Object.values(this.props.players[player])}
+          />
         ))}
-        <CountDownTimer
-          roundNum={this.props.counter}
-          receiveRoundEnd={this.props.receiveRoundEnd}
-        />
+        </div>
+        <div className="quiz__timer">
+          <CountDownTimer
+            roundNum={this.props.counter}
+            receiveRoundEnd={this.props.receiveRoundEnd}
+          />
+        </div>
         <h1 className="quiz__question">{this.currentQuiz().question}</h1>
-        <ul className="quiz__answers">
+        <ul className="quiz__answers ">
           {Object.keys(this.currentQuiz().answers).map(key => (
-            <li
-              className="quiz__answer"
+            <button
+              className="quiz__answer button--secondary"
               onClick={event => this.handleAnswer(key, event)}
               key={key}
             >
-              <p className="quiz__answerText">
+              <p className="quiz__answerText button__inner">
                 {this.currentQuiz().answers[key]}
               </p>
-            </li>
+            </button>
           ))}
         </ul>
       </section>
