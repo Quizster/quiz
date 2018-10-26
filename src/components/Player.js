@@ -6,17 +6,18 @@ class Player extends React.Component {
   }
 
   render() {
+    let scores = this.props.scores;
     return (
-      <li className="player" key={this.props.name}>
-        <p className="player__name">{this.props.name}</p>
+      <li className="player" key={this.props.player}>
+        <p className="player__name">{this.props.player}</p>
         <p className="player__score">
           Score:
-          {this.props.score}
+          {scores.filter(v => v === true).length}
         </p>
         <img
           className="player__image"
           src={`https://api.adorable.io/avatars/60/${
-            this.props.name
+            this.props.player
           }@adorable.png`}
         />
       </li>

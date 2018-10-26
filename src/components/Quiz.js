@@ -10,19 +10,16 @@ class Quiz extends React.Component {
     super(props);
     this.state = {
       player: {},
-      players: {}, // name: [true, true, false]
+      players: {},
       username: "",
       message: "",
       messages: [],
       answers: [],
       playerAnswers: {}
     };
-
     this.socket = io("localhost:4000");
-    this.socket.on("connected_players", function(data) {
-      console.log("playerAnswers: " + data);
+    this.socket.on("connected_players", data => {
       this.setState({ playerAnswers: data });
-      // this.setState({players: data})
     });
 
     this.handleAnswer = this.handleAnswer.bind(this);
@@ -78,9 +75,9 @@ class Quiz extends React.Component {
       this.setState({ player: editedPlayer });
 
       this.socket.emit("submit_answer", {
-        playerName: player,
+        playerName: this.props.playerName,
         question: this.props.counter,
-        answer: true
+        answer: false
       });
     }
 
@@ -91,13 +88,16 @@ class Quiz extends React.Component {
   render() {
     // let players = Object.getOwnPropertyNames(this.state.players);
     let players = Object.keys(this.props.players);
-    // console.log(this.props.playerId);
+    let playerObj = this.props.players;
     return (
       <section className="quiz">
         <div className="quiz__players">
-          {players.map(name => (
-            <Player score={this.props.score} name={name} />
-          ))}
+        {Object.keys(playerObj).map(player => (
+          <Player
+            player={player}
+            scores={Object.values(this.props.players[player])}
+          />
+        ))}
         </div>
         <div className="quiz__timer">
           <CountDownTimer
