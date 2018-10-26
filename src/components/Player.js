@@ -11,8 +11,7 @@ class Player extends React.Component {
       <li className="player" key={this.props.player}>
         <p className="player__name">{this.props.player}</p>
         <p className="player__score">
-          Score:
-          {scores.filter(v => v === true).length}
+          Score: ${scores.filter(v => v === true).length * 1000}
         </p>
         <img
           className="player__image"

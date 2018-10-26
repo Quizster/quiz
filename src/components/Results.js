@@ -43,7 +43,8 @@ class Results extends React.Component {
                   className="results__list__item"
                   key={Object.keys(player)[0]}
                 >
-                  {Object.keys(player)[0]} {Object.values(player)[0]}
+                  {Object.keys(player)[0]} ${Object.values(player)[0]}
+                  000
                 </li>
               ))}
             </ol>
