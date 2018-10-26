@@ -1,5 +1,4 @@
 import React from "react";
-import posed from "react-pose";
 import "../styles/Timer.scss";
 class CountDownTimer extends React.Component {
   constructor() {
@@ -11,15 +10,11 @@ class CountDownTimer extends React.Component {
   }
   componentDidMount() {
     this.startTimer();
-    setInterval(() => {
-      this.setState({ isVisible: !this.state.isVisible });
-    }, 500);
   }
   //Is the round counter about to increment?
   componentWillReceiveProps(nextProps) {
     if (nextProps.roundNum === this.props.roundNum + 1) {
       console.log("next round!");
-      this.toggle();
       this.startTimer();
     }
   }
@@ -36,13 +31,6 @@ class CountDownTimer extends React.Component {
     this.setState({
       seconds: seconds
     });
-
-    //this.setState({ isVisible: !this.state.isVisible });
-
-    if (seconds < 5) {
-      this.toggle();
-    }
-
     // Check if we're at zero.
     if (seconds === 0) {
       clearInterval(this.timer);

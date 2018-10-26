@@ -1,6 +1,7 @@
 import React from "react";
 import LandingPage from "./LandingPage";
 import Quiz from "./Quiz";
+import Results from "./Results";
 import io from "socket.io-client";
 import "../styles/App.scss";
 
@@ -10,6 +11,7 @@ class App extends React.Component {
     this.state = {
       landingPage: true,
       quiz: false,
+      resultShow: false,
       quizzes: [],
       counter: 0,
       quizId: 0,
@@ -92,6 +94,12 @@ class App extends React.Component {
         .catch(error => console.error("Error: ", error));
     }
   }
+  //Have we reached ten rounds? If so show the results!
+  receiveAnswersEachRound(answers) {
+    this.state.counter > 10
+      ? this.setState({ quiz: false, resultShow: true, playerAnswers: answers })
+      : null;
+  }
 
   componentDidMount() {
     fetch("/api/questions")
@@ -124,9 +132,13 @@ class App extends React.Component {
             playerId={this.state.playerId}
             quizzes={this.state.quizzes}
             counter={this.state.counter}
+            receiveAnswersEachRound={this.receiveAnswersEachRound}
             receiveRoundEnd={this.receiveRoundEnd}
             players={this.state.players}
           />
+        )}
+        {this.state.resultShow && (
+          <Results playerAnswers={this.state.playerAnswers} />
         )}
       </main>
     );
