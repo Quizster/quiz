@@ -171,6 +171,7 @@ INSERT INTO answer (question_id, answer, is_correct) VALUES (20, 'Peter II', DEF
 
 CREATE TABLE quiz(
 id SERIAL PRIMARY KEY,
+question_id INT,
 FOREIGN KEY (question_id) REFERENCES question (id)
 );
 
