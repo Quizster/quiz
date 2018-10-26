@@ -17,12 +17,24 @@ class Quiz extends React.Component {
       answers: [],
       playerAnswers: {}
     };
+    //   playerAnswers: {
+    //   tony: {
+    //     0: true,
+    //     1: false,
+    //     3: false
+    //   },
+    //   luke: {
+    //     0: true,
+    //     1: false
+    //   }
+    // }
 
     this.socket = io("localhost:4000");
     this.socket.on("connected_players", function(data) {
       console.log("playerAnswers: " + data);
       this.setState({ playerAnswers: data });
       // this.setState({players: data})
+      this.props.receiveAnswersEachRound(data);
     });
 
     this.handleAnswer = this.handleAnswer.bind(this);
