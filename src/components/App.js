@@ -52,7 +52,7 @@ class App extends React.Component {
       .catch(error => console.error("Error: ", error));
 
     // create connection to socket
-    this.socket = io("localhost:4000");
+    this.socket = io("https://arcane-ridge-13122.herokuapp.com/");
 
     // send player name to socket
     this.socket.emit("player_joined", user);
