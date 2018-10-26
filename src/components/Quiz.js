@@ -102,10 +102,17 @@ class Quiz extends React.Component {
   render() {
     // let players = Object.getOwnPropertyNames(this.state.players);
     let players = Object.keys(this.props.players);
+    let playerObj = this.props.players;
     return (
       <section className="quiz">
-        {players.map(name => (
-          <Player score={this.props.score} name={name} />
+        {/* {players.map(name => (
+          <Player score={this.props.score} players={this.props.players} name={name} player={Object.keys(players)[0]} scores={players[Object.keys(players)[0]]}/>
+        ))} */}
+        {Object.keys(playerObj).map(player => (
+          <Player
+            player={player}
+            scores={Object.values(this.props.players[player])}
+          />
         ))}
         <CountDownTimer
           roundNum={this.props.counter}
