@@ -3,7 +3,7 @@ import "../styles/Timer.scss";
 class CountDownTimer extends React.Component {
   constructor() {
     super();
-    this.state = { seconds: 15 };
+    this.state = { seconds: 10 };
     this.timer = 0;
     this.startTimer = this.startTimer.bind(this);
     this.countDown = this.countDown.bind(this);
@@ -37,7 +37,7 @@ class CountDownTimer extends React.Component {
     // Check if we're at zero.
     if (seconds === 0) {
       clearInterval(this.timer);
-      this.setState({ seconds: 15 });
+      this.setState({ seconds: 10 });
       this.props.receiveRoundEnd("next");
     }
   }
