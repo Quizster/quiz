@@ -5,7 +5,19 @@ id SERIAL PRIMARY KEY,
 question TEXT NOT NULL
 );
 
-INSERT INTO question(question) VALUES ('In the Bible who interpreted the dreams of Pharaoh?');
+INSERT INTO question(question) VALUES ('Whistler was the codename of this Microsoft Operating System?');
+INSERT INTO question(question) VALUES ('Which company first implemented the JavaScript language?');
+INSERT INTO question(question) VALUES ('Moores law originally stated that the number of transistors on a microprocessor chip would double every...?');
+INSERT INTO question(question) VALUES ('On which day did the World Wide Web go online?');
+INSERT INTO question(question) VALUES ('Which coding language was the #1 programming language in terms of usage on GitHub in 2015?');
+INSERT INTO question(question) VALUES ('In programming, the ternary operator is mostly defined with what symbol(s)?');
+INSERT INTO question(question) VALUES ('.rs is the top-level domain for what country?');
+INSERT INTO question(question) VALUES ('What five letter word is the motto of the IBM Computer company?');
+INSERT INTO question(question) VALUES ('In the server hosting industry IaaS stands for...?');
+INSERT INTO question(question) VALUES ('In CSS, which of these values CANNOT be used with the position property?');
+
+
+/*INSERT INTO question(question) VALUES ('In the Bible who interpreted the dreams of Pharaoh?');
 INSERT INTO question(question) VALUES ('The flag of which country has the Star of David?');
 INSERT INTO question(question) VALUES ('In which year was Magna Carta signed?');
 INSERT INTO question(question) VALUES ('When was Carthage destroyed?');
@@ -24,7 +36,7 @@ INSERT INTO question(question) VALUES ('Who won the Hockey World Cup in 1975?');
 INSERT INTO question(question) VALUES ('Which TV news channel began telecast in 1980?');
 INSERT INTO question(question) VALUES ('Which of the following is not a gas?');
 INSERT INTO question(question) VALUES ('Which state was known as Mysore?');
-INSERT INTO question(question) VALUES ('Who was the Czar of Russia in 1917?');
+INSERT INTO question(question) VALUES ('Who was the Czar of Russia in 1917?'); */
 
 CREATE TABLE answer(
 id SERIAL PRIMARY KEY,
@@ -34,7 +46,48 @@ answer VARCHAR(100) NOT NULL,
 FOREIGN KEY (question_id) REFERENCES question (id)
 );
 
-INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Joseph', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Windows XP', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Windows 2000', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Windows 7', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Windows 95', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (2, 'Microsoft', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (2, 'Sun Microsystems', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (2, 'Netscape Communications', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (2, 'Apple', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (3, 'Eight Years', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (3, 'Two Years', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (3, 'Four Years', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (3, 'Year', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (4, 'December 20, 1990', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (4, 'December 17, 1996', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (4, 'November 24, 1995', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (4, 'November 12, 1990', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (5, 'C#', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (5, 'PHP', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (5, 'JavaScript', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (5, 'Python', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (6, '?:', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (6, '??', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (6, 'if then', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (6, '?', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (7, 'Serbia', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (7, 'Romania', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (7, 'Russia', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (7, 'Rwanda', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (8, 'Click', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (8, 'Think', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (8, 'Pixel', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (8, 'Logic', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (9, 'Internet as a Service', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (9, 'Internet and a Server', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (9, 'Infrastructure as a Service', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (9, 'Infrastructure as a Server', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (10, 'static', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (10, 'center', TRUE);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (10, 'relative', DEFAULT);
+INSERT INTO answer (question_id, answer, is_correct) VALUES (10, 'absolute', DEFAULT);
+
+/*INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Joseph', TRUE);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Daniel', DEFAULT);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'David', DEFAULT);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (1, 'Samuel', DEFAULT);
@@ -114,6 +167,7 @@ INSERT INTO answer (question_id, answer, is_correct) VALUES (20, 'Nicholas II', 
 INSERT INTO answer (question_id, answer, is_correct) VALUES (20, 'Alexander II', DEFAULT);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (20, 'Ivan IV', DEFAULT);
 INSERT INTO answer (question_id, answer, is_correct) VALUES (20, 'Peter II', DEFAULT);
+*/
 
 CREATE TABLE quiz(
 id SERIAL PRIMARY KEY,
