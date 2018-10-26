@@ -142,6 +142,6 @@ app.post("/api/player/answer", function(req, res) {
 });
 
 const port = process.env.PORT || 8080;
-app.listen(port, function() {
+server.listen(port, function() {
   console.log(`Listening on port number ${port}`);
 });
