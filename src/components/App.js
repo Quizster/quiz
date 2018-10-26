@@ -17,16 +17,7 @@ class App extends React.Component {
       playerName: "",
       quizLength: 0,
       score: 0,
-      players: {},
-      answers: {
-        1234: {
-          123: {
-            name: "Tony",
-            id: 123,
-            answers: [true, false, true]
-          }
-        }
-      }
+      players: {}
     };
     this.parseObject = this.parseObject.bind(this);
     this.receiveRoundEnd = this.receiveRoundEnd.bind(this);
@@ -58,9 +49,13 @@ class App extends React.Component {
       .then(this.setState({ quiz: true }))
       .catch(error => console.error("Error: ", error));
 
+    // create connection to socket
     this.socket = io("localhost:4000");
+
+    // send player name to socket
     this.socket.emit("player_joined", user);
 
+    //
     this.socket.on("player_socket", data => {
       this.setState({ socketId: data });
     });
@@ -78,11 +73,9 @@ class App extends React.Component {
 
   receiveRoundEnd(player) {
     //Has the timer reached 0?
-    console.log(player);
     if (player === "next") {
       this.setState({ counter: this.state.counter + 1 });
     } else {
-      console.log("clicked", player);
       fetch("api/player/answer", {
         method: "post",
         body: JSON.stringify(player),
@@ -92,7 +85,6 @@ class App extends React.Component {
       })
         .then(response => response.json())
         .then(data => {
-          // console.log("order post success: ", JSON.stringify(data));
           this.setState({
             response: data
           });
@@ -118,7 +110,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.playerId);
     return (
       <main className="mainApp">
         {this.state.landingPage && (

@@ -1,14 +1,10 @@
 import React from "react";
 import posed from "react-pose";
 import "../styles/Timer.scss";
-const CountAnimate = posed.div({
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 }
-});
 class CountDownTimer extends React.Component {
   constructor() {
     super();
-    this.state = { seconds: 15, isVisible: true };
+    this.state = { seconds: 15 };
     this.timer = 0;
     this.startTimer = this.startTimer.bind(this);
     this.countDown = this.countDown.bind(this);
@@ -55,14 +51,7 @@ class CountDownTimer extends React.Component {
     }
   }
   render() {
-    return (
-      <CountAnimate
-        className="count"
-        pose={this.state.isVisible ? "visible" : "hidden"}
-      >
-        {this.state.seconds}
-      </CountAnimate>
-    );
+    return <h1 className="count">{this.state.seconds}</h1>;
   }
 }
 export default CountDownTimer;

@@ -42,8 +42,20 @@ io.on("connection", socket => {
     // const answer = data[]
     // io.emit("connected_players", playerAnswers);
 
-    if (!playerAnswers.hasOwnProperty(data.playerName)) {
-      playerAnswers[data.playerName][data.question] = data.answer;
+    // if (!playerAnswers.hasOwnProperty(data.playerName)) {
+    //   playerAnswers[data.playerName][data.question] = data.answer;
+    // }
+
+    if (
+      data.playerName != undefined &&
+      data.question != undefined &&
+      data.answer != undefined
+    ) {
+      if (
+        playerAnswers[data.playerName][data.question] != true &&
+        playerAnswers[data.playerName][data.question] != false
+      )
+        playerAnswers[data.playerName][data.question] = data.answer;
     }
 
     io.emit("connected_players", playerAnswers);
