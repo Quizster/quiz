@@ -93,7 +93,7 @@ class App extends React.Component {
         })
         .catch(error => console.error("Error: ", error));
     }
-    this.state.counter >= 3
+    this.state.counter >= 10
       ? this.setState({ quiz: false, resultShow: true })
       : null;
   }
