@@ -19,7 +19,7 @@ class Quiz extends React.Component {
     };
 
     this.socket = io("localhost:4000");
-    this.socket.on("connected_players", function(data) {
+    this.socket.on("connected_players", data => {
       console.log("playerAnswers: " + data);
       this.setState({ playerAnswers: data });
       // this.setState({players: data})
@@ -78,9 +78,9 @@ class Quiz extends React.Component {
       this.setState({ player: editedPlayer });
 
       this.socket.emit("submit_answer", {
-        playerName: player,
+        playerName: this.props.playerName,
         question: this.props.counter,
-        answer: true
+        answer: false
       });
     }
 
