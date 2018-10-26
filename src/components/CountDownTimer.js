@@ -1,5 +1,4 @@
 import React from "react";
-import posed from "react-pose";
 import "../styles/Timer.scss";
 class CountDownTimer extends React.Component {
   constructor() {
@@ -9,7 +8,6 @@ class CountDownTimer extends React.Component {
     this.startTimer = this.startTimer.bind(this);
     this.countDown = this.countDown.bind(this);
   }
-
   componentDidMount() {
     this.startTimer();
   }
@@ -33,9 +31,6 @@ class CountDownTimer extends React.Component {
     this.setState({
       seconds: seconds
     });
-
-    //this.setState({ isVisible: !this.state.isVisible })
-
     // Check if we're at zero.
     if (seconds === 0) {
       clearInterval(this.timer);
