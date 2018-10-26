@@ -11,10 +11,6 @@ app.use(bodyParser.json());
 app.use("/static", express.static("static"));
 app.set("view engine", "hbs");
 
-server.listen(4000, function() {
-  console.log("!Port 4000!");
-});
-
 // store player answers in format quizId: { playerId: [answer1, answer2] }
 let playerAnswers = {};
 let connectedPlayers = [];
@@ -64,7 +60,7 @@ io.on("connection", socket => {
 
 const pgp = require("pg-promise")();
 const db = pgp({
-  host: "localhost",
+  host: process.env.DB_HOST,
   port: 5432,
   database: process.env.DB_NAME,
   user: process.env.DB_USERNAME,
@@ -145,6 +141,7 @@ app.post("/api/player/answer", function(req, res) {
     });
 });
 
-app.listen(8080, function() {
-  console.log("Listening on port 8080");
+const port = process.env.PORT || 8080;
+server.listen(port, function() {
+  console.log(`Listening on port number ${port}`);
 });

@@ -8,7 +8,8 @@
     "build": "webpack --mode production",
     "demon": "nodemon server.js",
     "start": "node server.js",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "heroku-postbuild": "npm run build"
   },
   "pre-commit": [
     "pre-commit"
