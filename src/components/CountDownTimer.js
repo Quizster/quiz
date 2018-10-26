@@ -11,6 +11,9 @@ class CountDownTimer extends React.Component {
   componentDidMount() {
     this.startTimer();
   }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
   //Is the round counter about to increment?
   componentWillReceiveProps(nextProps) {
     if (nextProps.roundNum === this.props.roundNum + 1) {
