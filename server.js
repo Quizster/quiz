@@ -15,12 +15,23 @@ server.listen(4000, function() {
   console.log("!Port 4000!");
 });
 
+// store player answers in format quizId: { playerId: [answer1, answer2] }
+let playerAnswers = {};
+let connectedPlayers = [];
+
 io.on("connection", socket => {
-  console.log(socket.id);
   socket.emit("player connected", socket.id);
 
-  socket.on("SEND_MESSAGE", function(data) {
-    io.emit("RECEIVE_MESSAGE", data);
+  socket.on("send_answer", function(data) {
+    io.emit("receive_players", data);
+  });
+
+  // when player joins add name a key to player answers
+  socket.on("player_joined", function(data) {
+    if (!playerAnswers.hasOwnProperty(data)) {
+      playerAnswers[data] = "";
+    }
+    io.emit("connected_players", playerAnswers);
   });
 });
 
@@ -75,7 +86,7 @@ app.get("/api/questions", function(req, res) {
 // submit player name and get player id
 app.post("/api/player/user", function(req, res) {
   const { user } = req.body;
-  console.log(user);
+  // console.log(user);
   db.one(`INSERT INTO player (name) VALUES ($1) RETURNING id, name`, [user])
     .then(data => {
       res.json(data.id);
@@ -90,7 +101,7 @@ app.post("/api/player/user", function(req, res) {
 // submit player answer
 app.post("/api/player/answer", function(req, res) {
   const answer = req.body;
-  console.log(answer);
+  // console.log(answer);
   db.one(
     `INSERT INTO results (player_id, correct)
     VALUES ($1, $2)

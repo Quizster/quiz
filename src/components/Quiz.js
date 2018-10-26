@@ -13,12 +13,16 @@ class Quiz extends React.Component {
       players: {},
       username: "",
       message: "",
-      messages: []
+      messages: [],
+      answers: []
     };
 
+    console.log(props.playerName);
+
     this.socket = io("localhost:4000");
-    this.socket.on("RECEIVE_MESSAGE", function(data) {
-      addMessage(data);
+    this.socket.on("connected_players", function(data) {
+      console.log(data);
+      // this.setState({players: data})
     });
 
     this.handleAnswer = this.handleAnswer.bind(this);
@@ -33,20 +37,11 @@ class Quiz extends React.Component {
     };
 
     this.sendMessage = (key, correct) => {
-      this.socket.emit("SEND_MESSAGE", {
-        player: this.props.playerName,
-        message: correct
-      });
+      console.log(this.props.playerName);
+      this.socket.emit("send_answer", this.state.answers);
+
       this.setState({ message: "" });
     };
-  }
-
-  sendMessage(key, correct) {
-    this.socket.emit("SEND_MESSAGE", {
-      player: this.props.playerName,
-      message: correct
-    });
-    this.setState({ message: "" });
   }
 
   componentDidMount() {
@@ -71,14 +66,14 @@ class Quiz extends React.Component {
       });
       this.props.addTenToScore();
       this.setState({ player: editedPlayer });
-      console.log(this.state.player);
+      // console.log(this.state.player);
     } else {
       let editedPlayer = Object.assign(player, {
         id: this.props.playerId,
         result: false
       });
       this.setState({ player: editedPlayer });
-      console.log(this.state.player);
+      // console.log(this.state.player);
     }
 
     this.props.receiveRoundEnd(this.state.player);
@@ -86,8 +81,9 @@ class Quiz extends React.Component {
   }
 
   render() {
-    let players = Object.getOwnPropertyNames(this.state.players);
-    console.log(this.props.playerId);
+    // let players = Object.getOwnPropertyNames(this.state.players);
+    let players = Object.keys(this.props.players);
+    // console.log(this.props.playerId);
     return (
       <section className="quiz">
         {players.map(name => (
