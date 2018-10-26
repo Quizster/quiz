@@ -94,25 +94,29 @@ class Quiz extends React.Component {
     // console.log(this.props.playerId);
     return (
       <section className="quiz">
-        {players.map(name => (
-          <Player score={this.props.score} name={name} />
-        ))}
-        <CountDownTimer
-          roundNum={this.props.counter}
-          receiveRoundEnd={this.props.receiveRoundEnd}
-        />
+        <div className="quiz__players">
+          {players.map(name => (
+            <Player score={this.props.score} name={name} />
+          ))}
+        </div>
+        <div className="quiz__timer">
+          <CountDownTimer
+            roundNum={this.props.counter}
+            receiveRoundEnd={this.props.receiveRoundEnd}
+          />
+        </div>
         <h1 className="quiz__question">{this.currentQuiz().question}</h1>
-        <ul className="quiz__answers">
+        <ul className="quiz__answers ">
           {Object.keys(this.currentQuiz().answers).map(key => (
-            <li
-              className="quiz__answer"
+            <button
+              className="quiz__answer button--secondary"
               onClick={event => this.handleAnswer(key, event)}
               key={key}
             >
-              <p className="quiz__answerText">
+              <p className="quiz__answerText button__inner">
                 {this.currentQuiz().answers[key]}
               </p>
-            </li>
+            </button>
           ))}
         </ul>
       </section>

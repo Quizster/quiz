@@ -7,13 +7,14 @@ class Player extends React.Component {
 
   render() {
     return (
-      <li key={this.props.name}>
-        <p>
+      <li className="player" key={this.props.name}>
+        <p className="player__name">{this.props.name}</p>
+        <p className="player__score">
           Score:
           {this.props.score}
         </p>
-        <p>{this.props.name}</p>
         <img
+          className="player__image"
           src={`https://api.adorable.io/avatars/60/${
             this.props.name
           }@adorable.png`}
