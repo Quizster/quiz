@@ -16,10 +16,10 @@ discontinued after the 26/10/2018.
 
 # Contributers of the #DreamTeam
 
--Tony (The Boss)
+-Tony 
 
--Mariusz (Wrote this Readme)
+-Mariusz
 
--Nikki (Are you taking the mickey)
+-Nikki
 
--Luke (Needs no introduction)
+-Luke
